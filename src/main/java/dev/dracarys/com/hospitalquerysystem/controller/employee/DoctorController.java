@@ -1,15 +1,17 @@
 package dev.dracarys.com.hospitalquerysystem.controller.employee;
 
 
+import dev.dracarys.com.hospitalquerysystem.dominio.employee.Doctor;
 import dev.dracarys.com.hospitalquerysystem.requests.employee.doctor.DoctorPostRequestBody;
+import dev.dracarys.com.hospitalquerysystem.requests.employee.doctor.DoctorPutRequestBody;
 import dev.dracarys.com.hospitalquerysystem.service.employees.DoctorServices;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -21,12 +23,25 @@ public class DoctorController {
 
     private final DoctorServices doctorServices;
 
+    @GetMapping("/find/{crmOrName}")
+    public ResponseEntity<Page<Doctor>> findByCrm(@PathVariable String crmOrName, Pageable pageable){
+        return doctorServices.findByCrmOrName(crmOrName, pageable);
+    }
 
-
+    @GetMapping("/list")
+    public ResponseEntity<Page<Doctor>> listAllDoctor(Pageable pageable){
+        return new ResponseEntity<>(doctorServices.listAllDoctors(pageable), HttpStatus.OK);
+    }
 
     @PostMapping("/save")
     public ResponseEntity<Object> saveNewDoctor(@RequestBody @Valid DoctorPostRequestBody doctorPostRequestBody){
         return doctorServices.save(doctorPostRequestBody);
     }
+
+    @PutMapping("/admin")
+    public ResponseEntity<Doctor> replaceDoctor(@RequestBody DoctorPutRequestBody doctorPutRequestBody){
+        return doctorServices.replace(doctorPutRequestBody);
+    }
+
 
 }
