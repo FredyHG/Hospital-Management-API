@@ -16,4 +16,5 @@ public class AttendantPostRequestBody {
     private String firstName;
     @Length(min = 3,max = 16)
     private String lastName;
+    private Long attendantId;
 }
