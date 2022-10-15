@@ -21,34 +21,22 @@ public class DoctorServices {
 
     private final DoctorRepository doctorRepository;
 
-    @Transactional
-    public ResponseEntity<Object> save(DoctorPostRequestBody doctorPostRequestBody){
-
-        Optional<Doctor> doctorToBeSave = doctorRepository.findByCrmNonPageable(doctorPostRequestBody.getCrm());
-
-        if(doctorToBeSave.isPresent()){
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body("It was not possible to save the doctor, because there is already a doctor with the same "
-                            + doctorPostRequestBody.getCrm() + " registered");
-        }
-
-
-        doctorRepository.save(DoctorMapper.INSTANCE.toDoctor(doctorPostRequestBody));
-        return ResponseEntity.status(HttpStatus.CREATED).body("Doctor save successfully");
-    }
-
 
 
     public ResponseEntity<Page<Doctor>> findByCrmOrName(String crmOrName, Pageable pageable){
-        Page<Doctor> doctorOptional = doctorRepository.findByCrm(crmOrName, pageable);
-        Page<Doctor> doctorOptionalName = doctorRepository.findByFirstName(crmOrName, pageable);
+        boolean verify = isNumber(crmOrName);
 
-        if(!doctorOptional.isEmpty()){
-            return new ResponseEntity<>(doctorOptional, HttpStatus.OK);
+        Page<Doctor> doctorPageByName = doctorRepository.findByFirstName(crmOrName, pageable);
+
+        if(verify) {
+            Page<Doctor> doctorByCrm = doctorRepository.findByCrm(Long.parseLong(crmOrName), pageable);
+            if(!doctorByCrm.isEmpty()){
+                return new ResponseEntity<>(doctorByCrm, HttpStatus.OK);
+            }
         }
 
-        if(!doctorOptionalName.isEmpty()){
-            return new ResponseEntity<>(doctorOptionalName, HttpStatus.OK);
+        if(!doctorPageByName.isEmpty()){
+            return new ResponseEntity<>(doctorPageByName, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -67,6 +55,45 @@ public class DoctorServices {
         return new ResponseEntity<>(doctor, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @Transactional
+    public ResponseEntity<Object> save(DoctorPostRequestBody doctorPostRequestBody){
+
+        Optional<Doctor> doctorToBeSave = doctorRepository.findByCrmNonPageable(doctorPostRequestBody.getCrm());
+
+        if(doctorToBeSave.isPresent()){
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("It was not possible to save the doctor, because there is already a doctor with the same "
+                            + doctorPostRequestBody.getCrm() + " registered");
+        }
+
+
+        doctorRepository.save(DoctorMapper.INSTANCE.toDoctor(doctorPostRequestBody));
+        return ResponseEntity.status(HttpStatus.CREATED).body("Doctor save successfully");
+    }
+
+    @Transactional
+    public ResponseEntity<Object> deleteByCrm(Long crm) {
+        Optional<Doctor> doctorToBeDelete = doctorRepository.findByCrmOptional(crm);
+        if(doctorToBeDelete.isPresent()){
+            doctorRepository.deleteByCrm(crm);
+            return ResponseEntity.status(HttpStatus.OK).body("Doctor delete successfully");
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Doctor Not Found");
+    }
+
+    public static boolean isNumber(String s){
+        if(s==null){
+            return false;
+        }
+        try {
+           Long.parseLong(s);
+        } catch (NumberFormatException e){
+            return false;
+        }
+        return true;
     }
 }
 

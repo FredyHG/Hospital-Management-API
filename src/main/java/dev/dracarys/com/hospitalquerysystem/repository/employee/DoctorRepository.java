@@ -13,14 +13,14 @@ import java.util.Optional;
 public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
     @Query(value = "SELECT p FROM Doctor p WHERE p.crm = :crm")
-    Page<Doctor> findByCrm(String crm, Pageable pageable);
+    Page<Doctor> findByCrm(Long crm, Pageable pageable);
 
     @Query(value = "SELECT p FROM Doctor p WHERE p.crm = :crm")
-    Optional<Doctor> findByCrmOptional(String crm);
+    Optional<Doctor> findByCrmOptional(Long crm);
 
 
     @Query(value = "SELECT p FROM Doctor p WHERE p.crm = :crmNonPageable")
-    Optional<Doctor> findByCrmNonPageable(String crmNonPageable);
+    Optional<Doctor> findByCrmNonPageable(Long crmNonPageable);
 
     @Query(value = "SELECT p FROM Doctor p WHERE p.firstName = :firstName")
     Page<Doctor> findByFirstName(String firstName, Pageable pageable);
@@ -28,6 +28,6 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     @Query(value = "SELECT p FROM Doctor p WHERE p.firstName = :firstName")
     Optional<Doctor> findByFirstNameOptional(String firstName);
 
-
+    Long deleteByCrm(Long crm);
 
 }

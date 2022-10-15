@@ -48,7 +48,4 @@ public class AttendantController {
         return new ResponseEntity<>(attendantServices.deleteByAttendantId(id), HttpStatus.OK);
     }
 
-
-
-
 }

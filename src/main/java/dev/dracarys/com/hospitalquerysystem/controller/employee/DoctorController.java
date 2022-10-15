@@ -1,6 +1,5 @@
 package dev.dracarys.com.hospitalquerysystem.controller.employee;
 
-
 import dev.dracarys.com.hospitalquerysystem.dominio.employee.Doctor;
 import dev.dracarys.com.hospitalquerysystem.requests.employee.doctor.DoctorPostRequestBody;
 import dev.dracarys.com.hospitalquerysystem.requests.employee.doctor.DoctorPutRequestBody;
@@ -23,14 +22,14 @@ public class DoctorController {
 
     private final DoctorServices doctorServices;
 
-    @GetMapping("/find/{crmOrName}")
-    public ResponseEntity<Page<Doctor>> findByCrm(@PathVariable String crmOrName, Pageable pageable){
-        return doctorServices.findByCrmOrName(crmOrName, pageable);
-    }
-
     @GetMapping("/list")
     public ResponseEntity<Page<Doctor>> listAllDoctor(Pageable pageable){
         return new ResponseEntity<>(doctorServices.listAllDoctors(pageable), HttpStatus.OK);
+    }
+
+    @GetMapping("/find/{crmOrName}")
+    public ResponseEntity<Page<Doctor>> findByCrm(@PathVariable String crmOrName, Pageable pageable){
+        return doctorServices.findByCrmOrName(crmOrName, pageable);
     }
 
     @PostMapping("/save")
@@ -38,10 +37,14 @@ public class DoctorController {
         return doctorServices.save(doctorPostRequestBody);
     }
 
-    @PutMapping("/admin")
+    @PutMapping("/admin/update")
     public ResponseEntity<Doctor> replaceDoctor(@RequestBody DoctorPutRequestBody doctorPutRequestBody){
         return doctorServices.replace(doctorPutRequestBody);
     }
 
+    @DeleteMapping("/admin/delete/{crm}")
+    public ResponseEntity<Object> deleteDoctorByCrm(@PathVariable Long crm){
+        return doctorServices.deleteByCrm(crm);
+    }
 
 }
