@@ -3,7 +3,7 @@ package dev.dracarys.com.hospitalquerysystem.service;
 import dev.dracarys.com.hospitalquerysystem.dominio.Patients;
 import dev.dracarys.com.hospitalquerysystem.mapper.PatientMapper;
 import dev.dracarys.com.hospitalquerysystem.repository.PatientsRepository;
-import dev.dracarys.com.hospitalquerysystem.requests.employee.patient.PatientsPostRequestBody;
+import dev.dracarys.com.hospitalquerysystem.requests.patient.PatientsPostRequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

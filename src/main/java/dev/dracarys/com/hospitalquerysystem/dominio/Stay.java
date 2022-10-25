@@ -1,15 +1,17 @@
 package dev.dracarys.com.hospitalquerysystem.dominio;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import dev.dracarys.com.hospitalquerysystem.enums.StatusStay;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -20,13 +22,15 @@ public class Stay {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date stayDate;
-    @NotEmpty(message = "The field 'doctorId' cannot be empty")
-    private Long doctorId;
     private String drugAllergy;
     private String description;
-    @NotEmpty(message = "The field 'status' cannot be empty")
     private StatusStay status;
-    @NotEmpty(message = "The field 'room' cannot be empty")
-    private Long room;
-    private Date modifiedIn;
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "doctors_id")
+    private Doctor doctor;
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "patient_id")
+    private Patients patient;
 }

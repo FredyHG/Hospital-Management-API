@@ -1,14 +1,14 @@
 package dev.dracarys.com.hospitalquerysystem.mapper;
 
-import dev.dracarys.com.hospitalquerysystem.dominio.employee.Doctor;
-import dev.dracarys.com.hospitalquerysystem.requests.employee.doctor.DoctorPostRequestBody;
-import dev.dracarys.com.hospitalquerysystem.requests.employee.doctor.DoctorPutRequestBody;
+import dev.dracarys.com.hospitalquerysystem.dominio.Doctor;
+import dev.dracarys.com.hospitalquerysystem.requests.doctor.DoctorPostRequestBody;
+import dev.dracarys.com.hospitalquerysystem.requests.doctor.DoctorPutRequestBody;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-10-14T18:32:20-0300",
+    date = "2022-10-25T13:24:22-0300",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 11.0.16.1 (Amazon.com Inc.)"
 )
 @Component

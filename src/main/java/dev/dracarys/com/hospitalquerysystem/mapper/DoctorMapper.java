@@ -1,8 +1,8 @@
 package dev.dracarys.com.hospitalquerysystem.mapper;
 
-import dev.dracarys.com.hospitalquerysystem.dominio.employee.Doctor;
-import dev.dracarys.com.hospitalquerysystem.requests.employee.doctor.DoctorPostRequestBody;
-import dev.dracarys.com.hospitalquerysystem.requests.employee.doctor.DoctorPutRequestBody;
+import dev.dracarys.com.hospitalquerysystem.dominio.Doctor;
+import dev.dracarys.com.hospitalquerysystem.requests.doctor.DoctorPostRequestBody;
+import dev.dracarys.com.hospitalquerysystem.requests.doctor.DoctorPutRequestBody;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
