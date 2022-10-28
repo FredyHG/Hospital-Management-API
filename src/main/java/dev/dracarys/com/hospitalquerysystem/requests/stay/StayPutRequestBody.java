@@ -23,9 +23,9 @@ public class StayPutRequestBody {
     private String description;
     private StatusStay status;
     @NotEmpty
-    private Long crmDoctor;
+    private String crmDoctor;
     @NotEmpty
-    private String cpf;
+    private String cpfPatient;
 
 
 

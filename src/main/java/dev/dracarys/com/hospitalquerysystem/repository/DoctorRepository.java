@@ -12,16 +12,16 @@ import java.util.Optional;
 public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
     @Query(value = "SELECT p FROM Doctor p WHERE p.crm = :crm")
-    Optional<Doctor> findByCrm(Long crm);
+    Optional<Doctor> findByCrm(String crm);
 //    @Query(value = "SELECT p FROM Doctor p WHERE p.crm = :crm")
 //    Doctor findByCrm(Long crm);
 
     @Query(value = "SELECT p FROM Doctor p WHERE p.crm = :crm")
-    Optional<Doctor> findByCrmOptional(Long crm);
+    Optional<Doctor> findByCrmOptional(String crm);
 
 
     @Query(value = "SELECT p FROM Doctor p WHERE p.crm = :crmNonPageable")
-    Optional<Doctor> findByCrmNonPageable(Long crmNonPageable);
+    Optional<Doctor> findByCrmNonPageable(String crmNonPageable);
 
     @Query(value = "SELECT p FROM Doctor p WHERE p.firstName = :firstName")
     List<Doctor> findByFirstName(String firstName);
@@ -30,6 +30,6 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     Optional<Doctor> findByFirstNameOptional(String firstName);
 
 
-    Long deleteByCrm(Long crm);
+    Long deleteByCrm(String crm);
 
 }

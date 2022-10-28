@@ -29,7 +29,7 @@ public class DoctorController {
     }
 
     @GetMapping("/find/{crm}")
-    public ResponseEntity<DoctorDto> findByCrm(@PathVariable Long crm){
+    public ResponseEntity<DoctorDto> findByCrm(@PathVariable String crm){
         return doctorServices.findByCrm(crm);
     }
 
@@ -44,7 +44,7 @@ public class DoctorController {
     }
 
     @DeleteMapping("/admin/delete/{crm}")
-    public ResponseEntity<Object> deleteDoctorByCrm(@PathVariable Long crm){
+    public ResponseEntity<Object> deleteDoctorByCrm(@PathVariable String crm){
         return doctorServices.deleteByCrm(crm);
     }
 

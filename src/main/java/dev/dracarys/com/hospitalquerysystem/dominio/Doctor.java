@@ -21,7 +21,7 @@ public class Doctor {
     private Long id;
     private String firstName;
     private String lastName;
-    private Long crm;
+    private String crm;
     @JsonManagedReference
     @OneToMany(mappedBy = "doctor")
     private List<Appointments> appointments;

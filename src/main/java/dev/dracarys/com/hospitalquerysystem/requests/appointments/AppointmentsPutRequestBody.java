@@ -21,7 +21,7 @@ public class AppointmentsPutRequestBody {
     private String drugAllergy;
     private Boolean statusAttended;
     @NotEmpty
-    private Long crmDoctor;
+    private String crmDoctor;
     @NotEmpty
     private String cpf;
 

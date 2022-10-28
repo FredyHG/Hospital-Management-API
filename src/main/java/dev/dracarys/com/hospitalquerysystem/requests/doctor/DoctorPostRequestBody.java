@@ -21,5 +21,5 @@ public class DoctorPostRequestBody {
     private String lastName;
     @Length(max = 16)
     @NotEmpty
-    private Long crm;
+    private String crm;
 }

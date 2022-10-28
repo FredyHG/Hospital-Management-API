@@ -1,6 +1,5 @@
 package dev.dracarys.com.hospitalquerysystem.service;
 
-import dev.dracarys.com.hospitalquerysystem.dominio.Appointments;
 import dev.dracarys.com.hospitalquerysystem.dominio.Doctor;
 import dev.dracarys.com.hospitalquerysystem.dominio.Patients;
 import dev.dracarys.com.hospitalquerysystem.dominio.Stay;
@@ -8,8 +7,7 @@ import dev.dracarys.com.hospitalquerysystem.mapper.StayMapper;
 import dev.dracarys.com.hospitalquerysystem.repository.DoctorRepository;
 import dev.dracarys.com.hospitalquerysystem.repository.PatientsRepository;
 import dev.dracarys.com.hospitalquerysystem.repository.StayRepository;
-import dev.dracarys.com.hospitalquerysystem.requests.appointments.AppointmentsDto;
-import dev.dracarys.com.hospitalquerysystem.requests.appointments.AppointmentsPutRequestBody;
+import dev.dracarys.com.hospitalquerysystem.requests.stay.StayDeleteRequestBody;
 import dev.dracarys.com.hospitalquerysystem.requests.stay.StayDto;
 import dev.dracarys.com.hospitalquerysystem.requests.stay.StayPostRequestBody;
 import dev.dracarys.com.hospitalquerysystem.requests.stay.StayPutRequestBody;
@@ -41,10 +39,10 @@ public class StayServices {
 
         Stay stayToBeSaved = StayMapper.INSTANCE.toStay(stayPostRequestBody);
 
-        if (stayPostRequestBody.getCrmDoctor() != null && stayPostRequestBody.getCpf() != null) {
+        if (stayPostRequestBody.getCrmDoctor() != null && stayPostRequestBody.getCpfPatient() != null) {
 
             Optional<Doctor> doctorToBeSaved = doctorRepository.findByCrm(stayPostRequestBody.getCrmDoctor());
-            Optional<Patients> patientsToBeSaved = patientsRepository.findByCpf(stayPostRequestBody.getCpf());
+            Optional<Patients> patientsToBeSaved = patientsRepository.findByCpf(stayPostRequestBody.getCpfPatient());
 
 
             if (doctorToBeSaved.isPresent() && patientsToBeSaved.isPresent()) {
@@ -85,8 +83,7 @@ public class StayServices {
 
         List<Stay> stays = stayRepository.findAll();
 
-        Type listType = new TypeToken<List<StayDto>>() {
-        }.getType();
+        Type listType = new TypeToken<List<StayDto>>() {}.getType();
 
         List<StayDto> staysDtoList = modelMapper.map(stays, listType);
 
@@ -106,7 +103,7 @@ public class StayServices {
 
      public ResponseEntity<Object> editStayInfo(StayPutRequestBody stayPutRequestBody) {
          Optional<Doctor> doctor = doctorRepository.findByCrm(stayPutRequestBody.getCrmDoctor());
-         Optional<Patients> patients = patientsRepository.findByCpf(stayPutRequestBody.getCpf());
+         Optional<Patients> patients = patientsRepository.findByCpf(stayPutRequestBody.getCpfPatient());
 
          if (doctor.isPresent() && patients.isPresent()){
             Optional<Stay>  stay = stayRepository.findByDoctorAndPatient(doctor.get(),patients.get());
@@ -125,4 +122,24 @@ public class StayServices {
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body("Stay not found, check the parameters and try again");
      }
+
+    public ResponseEntity<Object> deleteStay(StayDeleteRequestBody stayDeleteRequestBody) {
+        Optional<Doctor> doctorToBeDelete = doctorRepository.findByCrm(stayDeleteRequestBody.getCrmDoctor());
+
+        Optional<Patients> patientToBeDelete = patientsRepository.findByCpf(stayDeleteRequestBody.getCpfPatient());
+
+        if(doctorToBeDelete.isPresent() && patientToBeDelete.isPresent()){
+            Optional<Stay> stayToBeDelete = stayRepository.findByDoctorAndPatient(
+                    doctorToBeDelete.get(), patientToBeDelete.get());
+
+            if(stayToBeDelete.isPresent()){
+               stayRepository.delete(stayToBeDelete.get());
+               return ResponseEntity.status(HttpStatus.OK).body("Stay delete successfully");
+            }
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Stay not found");
+        }
+
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Check parameters and try again");
+    }
 }

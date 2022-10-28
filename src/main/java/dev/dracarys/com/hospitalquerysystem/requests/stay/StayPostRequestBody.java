@@ -26,8 +26,8 @@ public class StayPostRequestBody {
     @NotNull
     private StatusStay status;
     @NotEmpty(message = "The doctor crm cannot be empty")
-    private Long crmDoctor;
+    private String crmDoctor;
     @NotEmpty(message = "The patient cpf cannot be empty")
-    private String cpf;
+    private String cpfPatient;
 
 }

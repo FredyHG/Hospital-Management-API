@@ -15,7 +15,9 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
-        <datasource-mapping />
+        <datasource-mapping>
+          <factory-entry name="entityManagerFactory" />
+        </datasource-mapping>
         <naming-strategy-map />
       </configuration>
     </facet>
@@ -69,8 +71,6 @@
     <orderEntry type="library" name="Maven: org.mapstruct:mapstruct-processor:1.5.2.Final" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:2.7.4" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-json:2.7.4" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.4" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.4" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.4" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.4" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.4" level="project" />
@@ -80,7 +80,6 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-web:5.3.23" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.23" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.3.23" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.3.23" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.23" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.3.23" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.springframework.boot:spring-boot-devtools:2.7.4" level="project" />
@@ -139,5 +138,15 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-aspects:5.3.23" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.30" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.h2database:h2:2.1.214" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-security:2.7.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.3.23" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-config:5.7.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-web:5.7.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.springframework.security:spring-security-test:5.7.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-core:5.7.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-crypto:5.7.3" level="project" />
+    <orderEntry type="library" name="Maven: com.auth0:java-jwt:4.2.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.4" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.4" level="project" />
   </component>
 </module>

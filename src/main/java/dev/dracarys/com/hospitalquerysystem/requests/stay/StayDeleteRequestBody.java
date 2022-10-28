@@ -1,4 +1,4 @@
-package dev.dracarys.com.hospitalquerysystem.requests.appointments;
+package dev.dracarys.com.hospitalquerysystem.requests.stay;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,12 +11,10 @@ import javax.validation.constraints.NotEmpty;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AppointmentDeleteRequestBody {
+public class StayDeleteRequestBody {
 
     @NotEmpty
     private String crmDoctor;
     @NotEmpty
-    private String cpf;
-
-
+    private String cpfPatient;
 }

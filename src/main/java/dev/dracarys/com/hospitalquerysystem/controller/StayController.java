@@ -1,5 +1,6 @@
 package dev.dracarys.com.hospitalquerysystem.controller;
 
+import dev.dracarys.com.hospitalquerysystem.requests.stay.StayDeleteRequestBody;
 import dev.dracarys.com.hospitalquerysystem.requests.stay.StayDto;
 import dev.dracarys.com.hospitalquerysystem.requests.stay.StayPostRequestBody;
 import dev.dracarys.com.hospitalquerysystem.requests.stay.StayPutRequestBody;
@@ -35,4 +36,8 @@ public class StayController {
         return stayServices.editStayInfo(stayPutRequestBody);
     }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<Object> deleteStay(StayDeleteRequestBody stayDeleteRequestBody){
+        return stayServices.deleteStay(stayDeleteRequestBody);
+    }
 }

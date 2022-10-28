@@ -1,5 +1,6 @@
 package dev.dracarys.com.hospitalquerysystem.handler;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import dev.dracarys.com.hospitalquerysystem.exceptions.BadRequestException;
 import dev.dracarys.com.hospitalquerysystem.exceptions.BadRequestExceptionDetails;
 import lombok.extern.log4j.Log4j2;

@@ -34,7 +34,7 @@ public class DoctorServices {
 
     ModelMapper modelMapper = new ModelMapper();
 
-    public ResponseEntity<DoctorDto> findByCrm(Long crm) {
+    public ResponseEntity<DoctorDto> findByCrm(String crm) {
         Optional<Doctor> doctorNonPageable = doctorRepository.findByCrmNonPageable(crm);
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
 
@@ -98,7 +98,7 @@ public class DoctorServices {
     }
 
     @Transactional
-    public ResponseEntity<Object> deleteByCrm(Long crm) {
+    public ResponseEntity<Object> deleteByCrm(String crm) {
         Optional<Doctor> doctorToBeDelete = doctorRepository.findByCrmOptional(crm);
         if (doctorToBeDelete.isPresent()) {
             doctorRepository.deleteByCrm(crm);

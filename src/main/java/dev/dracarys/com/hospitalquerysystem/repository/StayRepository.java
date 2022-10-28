@@ -1,6 +1,5 @@
 package dev.dracarys.com.hospitalquerysystem.repository;
 
-import dev.dracarys.com.hospitalquerysystem.dominio.Appointments;
 import dev.dracarys.com.hospitalquerysystem.dominio.Doctor;
 import dev.dracarys.com.hospitalquerysystem.dominio.Patients;
 import dev.dracarys.com.hospitalquerysystem.dominio.Stay;

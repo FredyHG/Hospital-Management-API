@@ -20,7 +20,7 @@ public class DoctorDto {
     private Long id;
     private String firstName;
     private String lastName;
-    private Long crm;
+    private String crm;
     @JsonIgnore
     private List<Appointments> appointments;
     private List<AppointmentsDto> appointmentsView;

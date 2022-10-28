@@ -20,6 +20,4 @@ public interface AppointmentsRepository extends JpaRepository<Appointments, Long
     @Query(value = "SELECT p FROM Appointments p WHERE p.doctor = :doctor AND p.patient = :patient AND p.patientAttended = false")
     Optional<Appointments> findByDoctorAndPatient(@Param("doctor") Doctor doctor, @Param("patient")Patients patients);
 
-//    @Query(value = "SELECT p FROM Appointments p WHERE p.doctor = :doctor AND p.patient = :patient AND p.patientAttended = true")
-//    Optional<Appointments> verifyAppointmentsExists(@Param("doctor") Doctor doctor, @Param("patient")Patients patients);
 }
