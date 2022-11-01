@@ -4,9 +4,7 @@ import dev.dracarys.com.hospitalquerysystem.dominio.Appointments;
 import dev.dracarys.com.hospitalquerysystem.dominio.Doctor;
 import dev.dracarys.com.hospitalquerysystem.dominio.Patients;
 import dev.dracarys.com.hospitalquerysystem.mapper.AppointmentMapper;
-import dev.dracarys.com.hospitalquerysystem.repository.AppointmentsRepository;
-import dev.dracarys.com.hospitalquerysystem.repository.DoctorRepository;
-import dev.dracarys.com.hospitalquerysystem.repository.PatientsRepository;
+import dev.dracarys.com.hospitalquerysystem.repository.*;
 import dev.dracarys.com.hospitalquerysystem.requests.appointments.AppointmentDeleteRequestBody;
 import dev.dracarys.com.hospitalquerysystem.requests.appointments.AppointmentsDto;
 import dev.dracarys.com.hospitalquerysystem.requests.appointments.AppointmentsPostRequestBody;
@@ -29,10 +27,28 @@ public class AppointmentsServices {
     private final AppointmentsRepository appointmentsRepository;
     private final DoctorRepository doctorRepository;
     private final PatientsRepository patientsRepository;
+
+    private final UserRepository userRepository;
+
+    private final RoleRepository roleRepository;
     ModelMapper modelMapper = new ModelMapper();
 
 
     public List<AppointmentsDto> listAllAppointments() {
+
+//        UserModel userModel = new UserModel();
+//
+//        Role role = new Role();
+//        role.setRoleName(ROLE_DOCTOR);
+//
+//        roleRepository.save(role);
+//
+//        ArrayList<Role> roles = new ArrayList<>();
+//        roles.add(role);
+//        userModel.setUsername("fredy1");
+//        userModel.setPassword("$2a$10$V0W8/efozkpbtaBEYfoTtOTQa1IA/Txg8fi5VLVn1kNKxUq52FCG2");
+//        userModel.setRoles(roles);
+//        userRepository.save(userModel);
 
 
         modelMapper.getConfiguration().setAmbiguityIgnored(true);

@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -16,19 +15,32 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import static dev.dracarys.com.hospitalquerysystem.configs.security.MyCustomDsl.customDsl;
 
 @EnableWebSecurity
-public class WebSecurityConfig{
-
+public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
-                .csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .anyRequest().authenticated()
+                .httpBasic()
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .authorizeHttpRequests()
+                .antMatchers(HttpMethod.GET, "/v1/hospital/appointments/**").hasAnyRole("DOCTOR", "HEADNURSE")
+                .antMatchers(HttpMethod.POST, "/v1/hospital/appointments/**").hasAnyRole("HEADNURSE", "ATTENDANT")
+                .antMatchers(HttpMethod.PUT, "/v1/hospital/appointments/**").hasAnyRole("HEADNURSE", "ATTENDANT")
+                .antMatchers(HttpMethod.DELETE, "/v1/hospital/appointments/**").hasAnyRole("HEADNURSE")
+                .antMatchers(HttpMethod.GET, "/v1/hospital/stay/**").hasAnyRole("DOCTOR", "HEADNURSE", "ATTENDANT")
+                .antMatchers(HttpMethod.POST, "/v1/hospital/stay/**").hasAnyRole("HEADNURSE", "ATTENDANT")
+                .antMatchers(HttpMethod.PUT, "/v1/hospital/stay/**").hasAnyRole("HEADNURSE", "ATTENDANT")
+                .antMatchers(HttpMethod.DELETE, "/v1/hospital/stay/**").hasAnyRole("HEADNURSE")
+                .antMatchers(HttpMethod.GET, "/v1/hospital/doctor/**").hasAnyRole("HEADNURSE", "ATTENDANT")
+                .antMatchers(HttpMethod.GET, "/v1/hospital/patients/**").hasAnyRole("HEADNURSE", "ATTENDANT")
+                .antMatchers(HttpMethod.POST, "/v1/hospital/patients/**").hasAnyRole("ATTENDANT")
+                .antMatchers(HttpMethod.PUT, "/v1/hospital/patients/**").hasAnyRole("ATTENDANT")
+                .antMatchers(HttpMethod.DELETE, "/v1/hospital/patients/**").hasAnyRole("HEADNURSE")
+                .anyRequest().hasRole("ADMIN")
                 .and()
-                .apply(customDsl());
+                .apply(customDsl())
+                .and()
+                .csrf().disable();
         return http.build();
     }
 

@@ -2,8 +2,11 @@ package dev.dracarys.com.hospitalquerysystem.dominio;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,6 +15,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "TB_USER")
 public class UserModel {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,6 +28,9 @@ public class UserModel {
     @JoinTable(name = "TB_USERS_ROLES",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles;
+    private List<Role> roles = new ArrayList<>();
 
+    public void addRole(Role role){
+        roles.add(role);
+    }
 }

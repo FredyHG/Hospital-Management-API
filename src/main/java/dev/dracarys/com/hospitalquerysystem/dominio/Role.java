@@ -3,6 +3,7 @@ package dev.dracarys.com.hospitalquerysystem.dominio;
 
 import dev.dracarys.com.hospitalquerysystem.enums.RoleName;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -12,6 +13,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "TB_ROLE")
 public class Role implements GrantedAuthority {
 
@@ -23,6 +25,9 @@ public class Role implements GrantedAuthority {
     private RoleName roleName;
 
 
+    public Role(String roleName) {
+        this.roleName = RoleName.valueOf(roleName);
+    }
 
     @Override
     public String getAuthority() {
