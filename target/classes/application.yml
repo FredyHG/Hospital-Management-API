@@ -2,8 +2,6 @@ server:
   error:
     include-stacktrace: on_param
 spring:
-  application:
-    name: springboot2-essentials
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres?createDatabaseIfNotExist=true
     username: postgres

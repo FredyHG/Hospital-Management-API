@@ -3,6 +3,9 @@ package dev.dracarys.com.hospitalquerysystem.controller;
 import dev.dracarys.com.hospitalquerysystem.dominio.Patients;
 import dev.dracarys.com.hospitalquerysystem.requests.patient.PatientsPostRequestBody;
 import dev.dracarys.com.hospitalquerysystem.service.PatientService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -24,48 +27,68 @@ public class PatientsController {
     private final PatientService patientService;
 
     @GetMapping("/{name}")
-    public List<Patients> findByName(@PathVariable String name) {
+    @Operation(summary = "Find Patient by name, return list", description = "To perform the request, it is necessary to have the permission of (HEADNURSE / ATTENDANT)", tags = {"PATIENTS"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Success return patient list"),
+            @ApiResponse(responseCode = "404", description = "Patient not found"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized request")
+    })
+    public ResponseEntity<Object> findByName(@PathVariable String name) {
         return patientService.findByName(name);
     }
 
     @GetMapping("/list")
-    public ResponseEntity<Page<Patients>> listAllPatients(Pageable pageable){
+    @Operation(summary = "List all patient pageable", description = "To perform the request, it is necessary to have the permission of (HEADNURSE / ATTENDANT)", tags = {"PATIENTS"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Success return patient pageable list"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized request")
+    })
+    public ResponseEntity<Object> listAllPatients(Pageable pageable){
         return ResponseEntity.ok(patientService.listAllPatients(pageable));
     }
 
     @GetMapping("/{firstName}/{lastName}")
+    @Operation(summary = "Find Patient by first name and last name, return list", description = "To perform the request, it is necessary to have the permission of (HEADNURSE / ATTENDANT)", tags = {"PATIENTS"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Success return patient list"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized request")
+    })
     public List<Patients> findByFirstNameAndLastName(@PathVariable String firstName, @PathVariable String lastName) {
         return patientService.findByFirstNameAndLastName(firstName, lastName);
     }
 
     @PostMapping("/create/")
-    public ResponseEntity<Object> save(@RequestBody @Valid PatientsPostRequestBody patients){
-        Optional<Patients> patientToBeSave = patientService.findByCpf(patients.getCpf());
-
-        if(patientToBeSave.isPresent()){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("The patient is already registered");
-        }
-        return new ResponseEntity<>(patientService.save(patients), HttpStatus.CREATED);
+    @Operation(summary = "Create new Patient", description = "To perform the request, it is necessary to have the permission of (ATTENDANT)", tags = {"PATIENTS"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Patient created successfully"),
+            @ApiResponse(responseCode = "409", description = "Patient already exists"),
+            @ApiResponse(responseCode = "400", description = "Invalid arguments in request body"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized request")
+    })
+    public ResponseEntity<Object> save(@RequestBody @Valid PatientsPostRequestBody patient){
+        return patientService.save(patient);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> save(@PathVariable Long id){
-        Optional<Patients> patientToBeDelete = patientService.findById(id);
-        if(patientToBeDelete.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Patient not found");
-        }
-        patientService.delete(patientToBeDelete.get());
-        return ResponseEntity.status(HttpStatus.OK).body("Patient delete successfully");
+    @Operation(summary = "Delete patient by id for ADMIN", description = "To perform the request, it is necessary to have the permission of (ADMIN)", tags = {"PATIENTS"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "404", description = "Patient not found"),
+            @ApiResponse(responseCode = "200", description = "Patient deleted successfully"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized request")
+    })
+    public ResponseEntity<Object> deleteById(@PathVariable Long id){
+        return patientService.deleteById(id);
     }
 
     @DeleteMapping("/delete/cpf/{cpf}")
-    public ResponseEntity<Object> save(@PathVariable String cpf){
-        Optional<Patients> patientToBeDelete = patientService.findByCpf(cpf);
-        if(patientToBeDelete.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Patient not found");
-        }
-        patientService.delete(patientToBeDelete.get());
-        return ResponseEntity.status(HttpStatus.OK).body("Patient delete successfully");
+    @Operation(summary = "Delete Patient by cpf", description = "To perform the request, it is necessary to have the permission of (HEADNURSE)", tags = {"PATIENTS"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "404", description = "Patient not found"),
+            @ApiResponse(responseCode = "200", description = "Patient deleted successfully"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized request")
+    })
+    public ResponseEntity<Object> deleteByCpf(@PathVariable String cpf){
+        return patientService.deleteByCpf(cpf);
     }
 
 

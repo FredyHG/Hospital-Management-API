@@ -11,7 +11,7 @@ import javax.validation.constraints.NotEmpty;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AppointmentDeleteRequestBody {
+public class SwitchPatientStatementRequestBody {
 
     @NotEmpty
     private String crmDoctor;

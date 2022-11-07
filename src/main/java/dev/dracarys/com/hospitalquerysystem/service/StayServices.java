@@ -71,7 +71,7 @@ public class StayServices {
         }
 
 
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("Check the information and try again");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Check the information and try again");
 
 
 
@@ -120,7 +120,7 @@ public class StayServices {
             }
         }
 
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("Stay not found, check the parameters and try again");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Stay not found, check the parameters and try again");
      }
 
     public ResponseEntity<Object> deleteStay(StayDeleteRequestBody stayDeleteRequestBody) {
@@ -136,7 +136,7 @@ public class StayServices {
                stayRepository.delete(stayToBeDelete.get());
                return ResponseEntity.status(HttpStatus.OK).body("Stay delete successfully");
             }
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Stay not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Stay not found");
         }
 
 

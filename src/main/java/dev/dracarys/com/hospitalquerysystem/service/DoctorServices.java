@@ -104,7 +104,6 @@ public class DoctorServices {
             doctorRepository.deleteByCrm(crm);
             return ResponseEntity.status(HttpStatus.OK).body("Doctor delete successfully");
         }
-
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Doctor Not Found");
     }
 

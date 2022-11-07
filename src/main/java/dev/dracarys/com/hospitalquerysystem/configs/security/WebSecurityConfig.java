@@ -23,7 +23,7 @@ public class WebSecurityConfig {
                 .httpBasic()
                 .and()
                 .authorizeHttpRequests()
-                .antMatchers(HttpMethod.GET, "/v1/hospital/appointments/**").hasAnyRole("DOCTOR", "HEADNURSE")
+                .antMatchers(HttpMethod.GET, "/v1/hospital/appointments/**").hasAnyRole("DOCTOR", "HEADNURSE", "ATTENDANT")
                 .antMatchers(HttpMethod.POST, "/v1/hospital/appointments/**").hasAnyRole("HEADNURSE", "ATTENDANT")
                 .antMatchers(HttpMethod.PUT, "/v1/hospital/appointments/**").hasAnyRole("HEADNURSE", "ATTENDANT")
                 .antMatchers(HttpMethod.DELETE, "/v1/hospital/appointments/**").hasAnyRole("HEADNURSE")

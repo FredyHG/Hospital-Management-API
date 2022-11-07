@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-10-31T16:15:53-0300",
+    date = "2022-11-06T20:01:11-0300",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 18.0.2.1 (Oracle Corporation)"
 )
 @Component
@@ -20,13 +20,13 @@ public class DoctorMapperImpl extends DoctorMapper {
             return null;
         }
 
-        Doctor doctor = new Doctor();
+        Doctor.DoctorBuilder doctor = Doctor.builder();
 
-        doctor.setFirstName( doctorPostRequestBody.getFirstName() );
-        doctor.setLastName( doctorPostRequestBody.getLastName() );
-        doctor.setCrm( doctorPostRequestBody.getCrm() );
+        doctor.firstName( doctorPostRequestBody.getFirstName() );
+        doctor.lastName( doctorPostRequestBody.getLastName() );
+        doctor.crm( doctorPostRequestBody.getCrm() );
 
-        return doctor;
+        return doctor.build();
     }
 
     @Override
@@ -35,13 +35,13 @@ public class DoctorMapperImpl extends DoctorMapper {
             return null;
         }
 
-        Doctor doctor = new Doctor();
+        Doctor.DoctorBuilder doctor = Doctor.builder();
 
-        doctor.setId( doctorPutRequestBody.getId() );
-        doctor.setFirstName( doctorPutRequestBody.getFirstName() );
-        doctor.setLastName( doctorPutRequestBody.getLastName() );
-        doctor.setCrm( doctorPutRequestBody.getCrm() );
+        doctor.id( doctorPutRequestBody.getId() );
+        doctor.firstName( doctorPutRequestBody.getFirstName() );
+        doctor.lastName( doctorPutRequestBody.getLastName() );
+        doctor.crm( doctorPutRequestBody.getCrm() );
 
-        return doctor;
+        return doctor.build();
     }
 }

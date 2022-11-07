@@ -23,6 +23,6 @@ public class AppointmentsPostRequestBody {
     @NotEmpty
     private String crmDoctor;
     @NotEmpty
-    private String cpf;
+    private String cpfPatient;
 
 }

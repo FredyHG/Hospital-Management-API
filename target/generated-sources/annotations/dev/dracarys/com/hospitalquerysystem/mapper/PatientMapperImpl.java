@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-10-31T16:15:53-0300",
+    date = "2022-11-06T20:01:11-0300",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 18.0.2.1 (Oracle Corporation)"
 )
 @Component
@@ -20,16 +20,16 @@ public class PatientMapperImpl extends PatientMapper {
             return null;
         }
 
-        Patients patients = new Patients();
+        Patients.PatientsBuilder patients = Patients.builder();
 
-        patients.setFirstName( patientsPostRequestBody.getFirstName() );
-        patients.setLastName( patientsPostRequestBody.getLastName() );
-        patients.setCpf( patientsPostRequestBody.getCpf() );
-        patients.setBirthdate( patientsPostRequestBody.getBirthdate() );
-        patients.setPhone( patientsPostRequestBody.getPhone() );
-        patients.setSusCard( patientsPostRequestBody.getSusCard() );
+        patients.firstName( patientsPostRequestBody.getFirstName() );
+        patients.lastName( patientsPostRequestBody.getLastName() );
+        patients.cpf( patientsPostRequestBody.getCpf() );
+        patients.birthdate( patientsPostRequestBody.getBirthdate() );
+        patients.phone( patientsPostRequestBody.getPhone() );
+        patients.susCard( patientsPostRequestBody.getSusCard() );
 
-        return patients;
+        return patients.build();
     }
 
     @Override
@@ -38,16 +38,16 @@ public class PatientMapperImpl extends PatientMapper {
             return null;
         }
 
-        Patients patients = new Patients();
+        Patients.PatientsBuilder patients = Patients.builder();
 
-        patients.setId( patientsPutRequestBody.getId() );
-        patients.setFirstName( patientsPutRequestBody.getFirstName() );
-        patients.setLastName( patientsPutRequestBody.getLastName() );
-        patients.setCpf( patientsPutRequestBody.getCpf() );
-        patients.setBirthdate( patientsPutRequestBody.getBirthdate() );
-        patients.setPhone( patientsPutRequestBody.getPhone() );
-        patients.setSusCard( patientsPutRequestBody.getSusCard() );
+        patients.id( patientsPutRequestBody.getId() );
+        patients.firstName( patientsPutRequestBody.getFirstName() );
+        patients.lastName( patientsPutRequestBody.getLastName() );
+        patients.cpf( patientsPutRequestBody.getCpf() );
+        patients.birthdate( patientsPutRequestBody.getBirthdate() );
+        patients.phone( patientsPutRequestBody.getPhone() );
+        patients.susCard( patientsPutRequestBody.getSusCard() );
 
-        return patients;
+        return patients.build();
     }
 }

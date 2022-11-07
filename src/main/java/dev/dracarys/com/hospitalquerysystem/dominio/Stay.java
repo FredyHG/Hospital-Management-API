@@ -33,4 +33,6 @@ public class Stay {
     @JsonBackReference
     @JoinColumn(name = "patient_id")
     private Patients patient;
+
+
 }

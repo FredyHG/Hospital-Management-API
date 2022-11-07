@@ -1,12 +1,12 @@
-package dev.dracarys.com.hospitalquerysystem;
+package dracarys.com.hospitalquerysystem;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class HospitalQuerySystemApplicationTests {
 
-    @Test
+//    @Test
     void contextLoads() {
     }
 
