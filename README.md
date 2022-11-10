@@ -38,9 +38,14 @@ You will need to install all dependencies to run:
 
 - **Java Backend development**
   
-  Using: Spring Web, Spring Security, JWT Auth, MVC like, OpenApi Doc, Lombok, MapStruct.
+  Using: Spring Boot, Spring Web, Spring Security, JWT Auth, MVC like, OpenApi Doc, Lombok, MapStruct.
 
 - **Rest API Documentation**
   
   Using: Swagger and Postman.
   
+  
+| UML Database diagram |
+|:--:|
+|![table.jpg](https://user-images.githubusercontent.com/67878286/200994675-dd4306c1-1154-4741-96bc-ccf63d3a612a.png)|
+I made this UML diagram using [LucidApp](https://lucid.app/documents#/dashboard).
