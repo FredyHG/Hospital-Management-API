@@ -10,6 +10,7 @@ import dev.dracarys.com.hospitalquerysystem.repository.PatientsRepository;
 import dev.dracarys.com.hospitalquerysystem.repository.DoctorRepository;
 import dev.dracarys.com.hospitalquerysystem.requests.doctor.DoctorPostRequestBody;
 import dev.dracarys.com.hospitalquerysystem.requests.doctor.DoctorPutRequestBody;
+import dev.dracarys.com.hospitalquerysystem.util.TitleCase;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -75,6 +76,8 @@ public class DoctorServices {
     public ResponseEntity<Doctor> replace(DoctorPutRequestBody doctorPutRequestBody) {
         if (doctorRepository.findByCrmOptional(doctorPutRequestBody.getCrm()).isPresent()) {
             Doctor doctor = DoctorMapper.INSTANCE.toDoctor(doctorPutRequestBody);
+            doctor.setFirstName(TitleCase.convertToTitleCaseIteratingChars(doctor.getFirstName()));
+            doctor.setLastName(TitleCase.convertToTitleCaseIteratingChars(doctor.getLastName()));
             doctorRepository.save(doctor);
             return new ResponseEntity<>(doctor, HttpStatus.OK);
         }
@@ -84,6 +87,7 @@ public class DoctorServices {
     @Transactional
     public ResponseEntity<Object> save(DoctorPostRequestBody doctorPostRequestBody) {
 
+
         Optional<Doctor> doctorToBeSave = doctorRepository.findByCrmNonPageable(doctorPostRequestBody.getCrm());
 
         if (doctorToBeSave.isPresent()) {
@@ -92,6 +96,8 @@ public class DoctorServices {
                             + doctorPostRequestBody.getCrm() + " registered");
         }
 
+        doctorPostRequestBody.setFirstName(TitleCase.convertToTitleCaseIteratingChars(doctorPostRequestBody.getFirstName()));
+        doctorPostRequestBody.setLastName(TitleCase.convertToTitleCaseIteratingChars(doctorPostRequestBody.getLastName()));
 
         doctorRepository.save(DoctorMapper.INSTANCE.toDoctor(doctorPostRequestBody));
         return ResponseEntity.status(HttpStatus.CREATED).body("Doctor save successfully");

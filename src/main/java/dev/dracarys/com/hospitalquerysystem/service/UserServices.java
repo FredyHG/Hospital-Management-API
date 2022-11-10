@@ -23,9 +23,7 @@ public class UserServices {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
-
     public ResponseEntity<Object> createNewUser(UserPostRequestBody userPostRequestBody) {
-
 
         String regularExpression = "^(?=.{4,20}$)(?:[a-zA-Z\\d]+(?:[._][a-zA-Z\\d])*)+$";
 

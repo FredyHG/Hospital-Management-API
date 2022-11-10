@@ -47,7 +47,7 @@ public class DoctorController {
         return doctorServices.findByCrm(crm);
     }
 
-    @PostMapping("/save")
+    @PostMapping("/create")
     @Operation(summary = "Create new doctor", description = "To perform the request, it is necessary to have the permission of (ADMIN)", tags = {"DOCTORS"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "409", description = "Doctor already exists"),

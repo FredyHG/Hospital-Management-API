@@ -48,7 +48,6 @@ public class UserController {
             @ApiResponse(responseCode = "409", description = "User data conflict"),
             @ApiResponse(responseCode = "201", description = "Role added successfully"),
             @ApiResponse(responseCode = "401", description = "Unauthorized request")
-
     })
     public ResponseEntity<Object> addRole(@RequestBody UserAddRoleRequestBody userAddRoleRequestBody){
         return userService.addRole(userAddRoleRequestBody);

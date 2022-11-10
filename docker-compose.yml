@@ -1,19 +1,32 @@
 version: '2.4'
 x-database-variables: &database-variable
-  SPRING_DATASOURCE_URL: jdbc:mysql://MYSQL:3306/hospital-query-system?createDatabaseIfNotExist=true
-  SPRING_DATASOURCE_USERNAME: root
+  SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres?createDatabaseIfNotExist=true
+  SPRING_DATASOURCE_USERNAME: postgres
   SPRING_DATASOURCE_PASSWORD: root
 services:
   db:
-    image: mysql
-    container_name: mysql
+    image: postgres
+    container_name: db
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - dracarys_data:/var/lib/mysql
+      - devdracarys_data:/var/lib/postgresql
     mem_limit: 512m
 
+
+
+  hospital-system:
+    image: dracarys22/hospital-system:0.0.1-SNAPSHOT
+    ports:
+      - "8080:8080"
+    environment:
+      <<: *database-variable
+    mem_limit: 512m
+    depends_on:
+      - db
+
 volumes:
-  dracarys_data:
+  devdracarys_data:

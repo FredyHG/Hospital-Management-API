@@ -18,7 +18,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class StayDto {
 
-
     @JsonIgnore
     private Long patientId;
     @JsonIgnore

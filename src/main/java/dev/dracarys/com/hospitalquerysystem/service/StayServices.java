@@ -26,14 +26,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class StayServices {
 
-
-
     private final DoctorRepository doctorRepository;
     private final PatientsRepository patientsRepository;
     private final StayRepository stayRepository;
     ModelMapper modelMapper = new ModelMapper();
-
-
 
     public ResponseEntity<Object> createNewStay(StayPostRequestBody stayPostRequestBody){
 
@@ -44,7 +40,6 @@ public class StayServices {
             Optional<Doctor> doctorToBeSaved = doctorRepository.findByCrm(stayPostRequestBody.getCrmDoctor());
             Optional<Patients> patientsToBeSaved = patientsRepository.findByCpf(stayPostRequestBody.getCpfPatient());
 
-
             if (doctorToBeSaved.isPresent() && patientsToBeSaved.isPresent()) {
                 Optional<Stay> stayExists = stayRepository.findByDoctorAndPatient(doctorToBeSaved.get(), patientsToBeSaved.get());
 
@@ -52,7 +47,6 @@ public class StayServices {
                     return ResponseEntity.status(HttpStatus.CONFLICT).body("There is already a pending stay for this patient");
                 }
             }
-
 
             if (doctorToBeSaved.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Doctor not found");
@@ -72,9 +66,6 @@ public class StayServices {
 
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Check the information and try again");
-
-
-
     }
 
     public List<StayDto> listAllStays() {
@@ -87,7 +78,6 @@ public class StayServices {
 
         List<StayDto> staysDtoList = modelMapper.map(stays, listType);
 
-
         staysDtoList.forEach(staysDto -> staysDto.setPatientName(
                 patientsRepository.findById(staysDto.getPatientId()).orElseThrow().getFirstName() +
                         " " + patientsRepository.findById(staysDto.getPatientId()).orElseThrow().getLastName()));
@@ -97,8 +87,6 @@ public class StayServices {
                         " " + doctorRepository.findById(staysDto.getDoctorId()).orElseThrow().getLastName()));
 
         return staysDtoList;
-
-
     }
 
      public ResponseEntity<Object> editStayInfo(StayPutRequestBody stayPutRequestBody) {
@@ -138,7 +126,6 @@ public class StayServices {
             }
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Stay not found");
         }
-
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body("Check parameters and try again");
     }

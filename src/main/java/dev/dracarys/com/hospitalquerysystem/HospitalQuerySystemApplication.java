@@ -9,7 +9,8 @@ public class HospitalQuerySystemApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(HospitalQuerySystemApplication.class, args);
-        System.out.println(new BCryptPasswordEncoder().encode("senha123"));
-    }
 
+        System.out.println(new BCryptPasswordEncoder().encode("senha123"));
+
+    }
 }

@@ -5,6 +5,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class TitleCase {
 
+    private TitleCase() {
+
+    }
+
     public static String convertToTitleCaseIteratingChars(String text) {
     if (text == null || text.isEmpty()) {
         return text;

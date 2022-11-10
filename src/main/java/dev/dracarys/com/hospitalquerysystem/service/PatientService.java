@@ -4,6 +4,7 @@ import dev.dracarys.com.hospitalquerysystem.dominio.Patients;
 import dev.dracarys.com.hospitalquerysystem.mapper.PatientMapper;
 import dev.dracarys.com.hospitalquerysystem.repository.PatientsRepository;
 import dev.dracarys.com.hospitalquerysystem.requests.patient.PatientsPostRequestBody;
+import dev.dracarys.com.hospitalquerysystem.util.TitleCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,6 +33,8 @@ public class PatientService {
         if(patientToBeSaved.isEmpty()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Request Body is incorrect");
         }
+        patientToBeSaved.get().setFirstName(TitleCase.convertToTitleCaseIteratingChars(patientToBeSaved.get().getFirstName()));
+        patientToBeSaved.get().setLastName(TitleCase.convertToTitleCaseIteratingChars(patientToBeSaved.get().getLastName()));
 
         patientsRepository.save(patientToBeSaved.get());
         return ResponseEntity.status(HttpStatus.CREATED).body("Patient created successfully");
@@ -45,7 +48,6 @@ public class PatientService {
         }
         return ResponseEntity.ok(listPatient);
     }
-
 
     public Page<Patients> listAllPatients(Pageable pageable) {
         return patientsRepository.findAll(pageable);
