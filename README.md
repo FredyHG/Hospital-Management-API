@@ -47,5 +47,5 @@ You will need to install all dependencies to run:
   
 | UML Database diagram |
 |:--:|
-|![table.jpg](https://user-images.githubusercontent.com/67878286/200994675-dd4306c1-1154-4741-96bc-ccf63d3a612a.png)|
+|![table.jpg](https://user-images.githubusercontent.com/67878286/200995135-64613bdb-4abc-4de8-94d5-b64a1ab375f9.png)|
 I made this UML diagram using [LucidApp](https://lucid.app/documents#/dashboard).
