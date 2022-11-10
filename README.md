@@ -27,3 +27,20 @@ You will need to install all dependencies to run:
 ## How to use
 
 - You can found my documentation [here](https://hospital-system-fg.herokuapp.com/swagger-ui/index.html#/).
+- Run Docker Container to start API Server.
+- All endpoint methods, except `/login` needs a JWT Token to use.
+
+## Skills used:
+
+- **Database Manager**
+
+  Using: PostgreSQL, Database modeling (UML Diagram).
+
+- **Java Backend development**
+  
+  Using: Spring Web, Spring Security, JWT Auth, MVC like, OpenApi Doc, Lombok, MapStruct.
+
+- **Rest API Documentation**
+  
+  Using: Swagger and Postman.
+  
