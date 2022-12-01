@@ -18,10 +18,13 @@ public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID userId;
+
     @Column(nullable = false, unique = true)
     private String username;
+
     @Column(nullable = false)
     private String password;
+
     @ManyToMany
     @JoinTable(name = "TB_USERS_ROLES",
             joinColumns = @JoinColumn(name = "user_id"),

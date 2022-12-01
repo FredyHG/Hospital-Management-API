@@ -7,8 +7,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -19,17 +18,22 @@ public class Appointments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date appointmentDate;
+
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "patients_id")
     private Patients patient;
+
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
+
     private Boolean patientAttended;
+
     private String drugAllergy;
 
 }

@@ -8,7 +8,7 @@ import dev.dracarys.com.hospitalquerysystem.repository.DoctorRepository;
 import dev.dracarys.com.hospitalquerysystem.repository.PatientsRepository;
 import dev.dracarys.com.hospitalquerysystem.repository.StayRepository;
 import dev.dracarys.com.hospitalquerysystem.requests.stay.StayDeleteRequestBody;
-import dev.dracarys.com.hospitalquerysystem.requests.stay.StayDto;
+import dev.dracarys.com.hospitalquerysystem.requests.stay.StayGetReturnObject;
 import dev.dracarys.com.hospitalquerysystem.requests.stay.StayPostRequestBody;
 import dev.dracarys.com.hospitalquerysystem.requests.stay.StayPutRequestBody;
 import lombok.RequiredArgsConstructor;
@@ -68,15 +68,15 @@ public class StayServices {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Check the information and try again");
     }
 
-    public List<StayDto> listAllStays() {
+    public List<StayGetReturnObject> listAllStays() {
 
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
 
         List<Stay> stays = stayRepository.findAll();
 
-        Type listType = new TypeToken<List<StayDto>>() {}.getType();
+        Type listType = new TypeToken<List<StayGetReturnObject>>() {}.getType();
 
-        List<StayDto> staysDtoList = modelMapper.map(stays, listType);
+        List<StayGetReturnObject> staysDtoList = modelMapper.map(stays, listType);
 
         staysDtoList.forEach(staysDto -> staysDto.setPatientName(
                 patientsRepository.findById(staysDto.getPatientId()).orElseThrow().getFirstName() +

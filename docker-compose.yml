@@ -1,6 +1,6 @@
 version: '2.4'
 x-database-variables: &database-variable
-  SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres?createDatabaseIfNotExist=true
+  SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres
   SPRING_DATASOURCE_USERNAME: postgres
   SPRING_DATASOURCE_PASSWORD: root
 services:
@@ -19,7 +19,7 @@ services:
 
 
   hospital-system:
-    image: dracarys22/hospital-system:0.0.1-SNAPSHOT
+    build: .
     ports:
       - "8080:8080"
     environment:

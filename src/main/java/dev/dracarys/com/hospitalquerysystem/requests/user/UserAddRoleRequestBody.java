@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class UserAddRoleRequestBody {
 
     private String username;
+
     private RoleName role;
 
 }

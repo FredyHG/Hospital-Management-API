@@ -20,13 +20,18 @@ public class StayPostRequestBody {
     @NotEmpty
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date stayDate;
+
     @NotEmpty(message = "The field drug allergy cannot be empty")
     private String drugAllergy;
+
     private String description;
+
     @NotNull
     private StatusStay status;
+
     @NotEmpty(message = "The doctor crm cannot be empty")
     private String crmDoctor;
+
     @NotEmpty(message = "The patient cpf cannot be empty")
     private String cpfPatient;
 

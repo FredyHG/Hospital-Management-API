@@ -3,8 +3,8 @@ package dev.dracarys.com.hospitalquerysystem.service;
 import dev.dracarys.com.hospitalquerysystem.dominio.Appointments;
 import dev.dracarys.com.hospitalquerysystem.dominio.Doctor;
 import dev.dracarys.com.hospitalquerysystem.repository.AppointmentsRepository;
-import dev.dracarys.com.hospitalquerysystem.requests.appointments.AppointmentsDto;
-import dev.dracarys.com.hospitalquerysystem.requests.doctor.DoctorDto;
+import dev.dracarys.com.hospitalquerysystem.requests.appointments.AppointmentGetReturnObject;
+import dev.dracarys.com.hospitalquerysystem.requests.doctor.DoctorGetReturnObject;
 import dev.dracarys.com.hospitalquerysystem.mapper.DoctorMapper;
 import dev.dracarys.com.hospitalquerysystem.repository.PatientsRepository;
 import dev.dracarys.com.hospitalquerysystem.repository.DoctorRepository;
@@ -35,7 +35,7 @@ public class DoctorServices {
 
     ModelMapper modelMapper = new ModelMapper();
 
-    public ResponseEntity<DoctorDto> findByCrm(String crm) {
+    public ResponseEntity<DoctorGetReturnObject> findByCrm(String crm) {
         Optional<Doctor> doctorNonPageable = doctorRepository.findByCrmNonPageable(crm);
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
 
@@ -43,12 +43,12 @@ public class DoctorServices {
         if (doctorNonPageable.isPresent()) {
 
             List<Appointments> appointments = appointmentsRepository.findByDoctorId(doctorNonPageable.get());
-            Type listType = new TypeToken<List<AppointmentsDto>>() {
+            Type listType = new TypeToken<List<AppointmentGetReturnObject>>() {
             }.getType();
-            List<AppointmentsDto> appointmentsDtoList = modelMapper.map(appointments, listType);
+            List<AppointmentGetReturnObject> appointmentsDtoList = modelMapper.map(appointments, listType);
 
 
-            DoctorDto doctorDtoView = modelMapper.map(doctorNonPageable.get(), DoctorDto.class);
+            DoctorGetReturnObject doctorDtoView = modelMapper.map(doctorNonPageable.get(), DoctorGetReturnObject.class);
 
             appointmentsDtoList.forEach(appointmentsDto -> appointmentsDto.setPatientName(
                     patientsRepository.findById(appointmentsDto.getPatientId()).orElseThrow().getFirstName() +

@@ -21,12 +21,17 @@ public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String firstName;
+
     private String lastName;
+
     private String crm;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "doctor")
     private List<Appointments> appointments;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "doctor")
     private List<Stay> stays;

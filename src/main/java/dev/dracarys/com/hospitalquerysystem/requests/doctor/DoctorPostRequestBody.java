@@ -16,9 +16,11 @@ public class DoctorPostRequestBody {
     @Length(min = 3,max = 16)
     @NotEmpty
     private String firstName;
+
     @Length(min = 3,max = 16)
     @NotEmpty
     private String lastName;
+
     @Length(max = 16)
     @NotEmpty
     private String crm;

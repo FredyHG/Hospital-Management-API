@@ -15,6 +15,7 @@ public class AppointmentDeleteRequestBody {
 
     @NotEmpty
     private String crmDoctor;
+
     @NotEmpty
     private String cpfPatient;
 

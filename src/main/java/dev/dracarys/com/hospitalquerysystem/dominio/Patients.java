@@ -20,16 +20,24 @@ public class Patients {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String firstName;
+
     private String lastName;
+
     private String cpf;
+
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date birthdate;
+
     private String phone;
+
     private String susCard;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "patient")
     private List<Appointments> appointments;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "patient")
     private List<Stay> stays;

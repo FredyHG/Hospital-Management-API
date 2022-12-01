@@ -17,10 +17,6 @@
         <java.version>11</java.version>
         <jib-maven-plugin.version>3.3.1</jib-maven-plugin.version>
         <springdoc-openapi-ui.version>1.6.12</springdoc-openapi-ui.version>
-        <docker.distroless.image>gcr.io/distroless/java:11</docker.distroless.image>
-        <docker.repo.url>dracarys22</docker.repo.url>
-        <docker.repo.project>hospital-system</docker.repo.project>
-        <docker.image.name>${docker.repo.url}/${docker.repo.project}</docker.image.name>
     </properties>
 
     <dependencies>
@@ -113,24 +109,6 @@
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
                 <version>${jib-maven-plugin.version}</version>
-                <configuration>
-                    <from>
-                        <image>${docker.distroless.image}</image>
-                    </from>
-                    <to>
-                        <image>${docker.image.name}</image>
-                        <auth>
-                            <username>changeme</username>
-                            <password>changeme</password>
-                        </auth>
-                        <tags>
-                            <tag>${project.version}</tag>
-                        </tags>
-                    </to>
-                    <container>
-                        <mainClass>dev.dracarys.com.hospitalquerysystem.HospitalQuerySystemApplication</mainClass>
-                    </container>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -1,7 +1,7 @@
 package dev.dracarys.com.hospitalquerysystem.controller;
 
 import dev.dracarys.com.hospitalquerysystem.dominio.Doctor;
-import dev.dracarys.com.hospitalquerysystem.requests.doctor.DoctorDto;
+import dev.dracarys.com.hospitalquerysystem.requests.doctor.DoctorGetReturnObject;
 import dev.dracarys.com.hospitalquerysystem.requests.doctor.DoctorPostRequestBody;
 import dev.dracarys.com.hospitalquerysystem.requests.doctor.DoctorPutRequestBody;
 import dev.dracarys.com.hospitalquerysystem.service.DoctorServices;
@@ -43,7 +43,7 @@ public class DoctorController {
             @ApiResponse(responseCode = "404", description = "Doctor not found"),
             @ApiResponse(responseCode = "401", description = "Unauthorized request")
     })
-    public ResponseEntity<DoctorDto> findByCrm(@PathVariable String crm){
+    public ResponseEntity<DoctorGetReturnObject> findByCrm(@PathVariable String crm){
         return doctorServices.findByCrm(crm);
     }
 

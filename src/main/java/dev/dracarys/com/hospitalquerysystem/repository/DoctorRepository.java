@@ -20,13 +20,6 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     @Query(value = "SELECT p FROM Doctor p WHERE p.crm = :crmNonPageable")
     Optional<Doctor> findByCrmNonPageable(String crmNonPageable);
 
-    @Query(value = "SELECT p FROM Doctor p WHERE p.firstName = :firstName")
-    List<Doctor> findByFirstName(String firstName);
-
-    @Query(value = "SELECT p FROM Doctor p WHERE p.firstName = :firstName")
-    Optional<Doctor> findByFirstNameOptional(String firstName);
-
-
     Long deleteByCrm(String crm);
 
 }

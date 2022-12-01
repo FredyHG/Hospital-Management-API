@@ -15,12 +15,15 @@ import javax.validation.constraints.NotEmpty;
 public class DoctorPutRequestBody {
     @NotEmpty
     private Long id;
+
     @Length(min = 3,max = 16)
     @NotEmpty
     private String firstName;
+
     @Length(min = 3,max = 16)
     @NotEmpty
     private String lastName;
+
     @Length(max = 16)
     @NotEmpty
     private String crm;

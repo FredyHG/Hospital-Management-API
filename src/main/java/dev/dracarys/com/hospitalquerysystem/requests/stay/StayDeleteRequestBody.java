@@ -15,6 +15,7 @@ public class StayDeleteRequestBody {
 
     @NotEmpty
     private String crmDoctor;
+
     @NotEmpty
     private String cpfPatient;
 }

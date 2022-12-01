@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class UserPostRequestBody {
 
     private String username;
+
     private String password;
 
 }

@@ -3,7 +3,7 @@ server:
     include-stacktrace: on_param
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?createDatabaseIfNotExist=true
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: root
   jpa:

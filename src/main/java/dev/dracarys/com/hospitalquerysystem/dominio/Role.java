@@ -20,6 +20,7 @@ public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID roleId;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, unique = true)
     private RoleName roleName;

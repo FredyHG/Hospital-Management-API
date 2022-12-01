@@ -1,7 +1,7 @@
 package dev.dracarys.com.hospitalquerysystem.controller;
 
 import dev.dracarys.com.hospitalquerysystem.requests.stay.StayDeleteRequestBody;
-import dev.dracarys.com.hospitalquerysystem.requests.stay.StayDto;
+import dev.dracarys.com.hospitalquerysystem.requests.stay.StayGetReturnObject;
 import dev.dracarys.com.hospitalquerysystem.requests.stay.StayPostRequestBody;
 import dev.dracarys.com.hospitalquerysystem.requests.stay.StayPutRequestBody;
 import dev.dracarys.com.hospitalquerysystem.service.StayServices;
@@ -45,7 +45,7 @@ public class StayController {
             @ApiResponse(responseCode = "200", description = "Success list all stays"),
             @ApiResponse(responseCode = "401", description = "Unauthorized request")
     })
-    public ResponseEntity<List<StayDto>> findAll(){
+    public ResponseEntity<List<StayGetReturnObject>> findAll(){
         return new ResponseEntity<>(stayServices.listAllStays(), HttpStatus.OK);
     }
 

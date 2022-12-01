@@ -1,0 +1,12 @@
+target
+.dockerignore
+.gitignore
+docker-compose.yml
+Dockerfile
+hopspital-query-system.iml
+mvnw
+mvnw.cmd
+README.md
+system.properties
+.idea
+.mvn

@@ -22,7 +22,6 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
         try {
             Role adminRole = new Role();
             adminRole.setRoleName(RoleName.ROLE_ADMIN);
@@ -53,28 +52,28 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
             UserModel admin = new UserModel();
             admin.setUsername("admin");
-            admin.setPassword("$2a$10$ZC111zh0hUvt0L6eRq8KNeQtxCwJK2tzoF/STa0A2UfgcW5IgEfw2");
+            admin.setPassword("$2a$10$ixT75lqtHwp.mwJlLLB9/.mLJGDaS7IF5PeYszZNtVvS2SchzS9/u");
             admin.setRoles(roleAdminList);
 
             userRepository.save(admin);
 
             UserModel headnurse = new UserModel();
             headnurse.setUsername("headnurse");
-            headnurse.setPassword("$2a$10$ZC111zh0hUvt0L6eRq8KNeQtxCwJK2tzoF/STa0A2UfgcW5IgEfw2");
+            headnurse.setPassword("$2a$10$ixT75lqtHwp.mwJlLLB9/.mLJGDaS7IF5PeYszZNtVvS2SchzS9/u");
             headnurse.setRoles(roleHeadNurseList);
 
             userRepository.save(headnurse);
 
             UserModel doctor = new UserModel();
             doctor.setUsername("doctor");
-            doctor.setPassword("$2a$10$ZC111zh0hUvt0L6eRq8KNeQtxCwJK2tzoF/STa0A2UfgcW5IgEfw2");
+            doctor.setPassword("$2a$10$ixT75lqtHwp.mwJlLLB9/.mLJGDaS7IF5PeYszZNtVvS2SchzS9/u");
             doctor.setRoles(roleDoctorList);
 
             userRepository.save(doctor);
 
             UserModel attendant = new UserModel();
             attendant.setUsername("attendant");
-            attendant.setPassword("$2a$10$ZC111zh0hUvt0L6eRq8KNeQtxCwJK2tzoF/STa0A2UfgcW5IgEfw2");
+            attendant.setPassword("$2a$10$ixT75lqtHwp.mwJlLLB9/.mLJGDaS7IF5PeYszZNtVvS2SchzS9/u");
             attendant.setRoles(roleAttendantList);
 
             userRepository.save(attendant);
