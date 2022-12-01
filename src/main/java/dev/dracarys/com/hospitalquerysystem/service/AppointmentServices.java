@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +55,9 @@ public class AppointmentServices {
     @SuppressWarnings("DuplicatedCode")
     public ResponseEntity<Object> save(AppointmentPostRequestBody appointmentsPostRequestBody) {
 
+        if(new Date().before(appointmentsPostRequestBody.getAppointmentDate())){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Data errada");
+        }
 
         Appointments appointmentsToBeSaved = AppointmentMapper.INSTANCE.toAppointment(appointmentsPostRequestBody);
 
