@@ -6,14 +6,17 @@ import dev.dracarys.com.hospitalquerysystem.enums.RoleName;
 import dev.dracarys.com.hospitalquerysystem.repository.RoleRepository;
 import dev.dracarys.com.hospitalquerysystem.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 public class CommandLineAppStartupRunner implements CommandLineRunner {
 
     private final UserRepository userRepository;
@@ -22,64 +25,70 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        try {
-            Role adminRole = new Role();
-            adminRole.setRoleName(RoleName.ROLE_ADMIN);
-            roleRepository.save(adminRole);
-            List<Role> roleAdminList = new ArrayList<>();
-            roleRepository.save(adminRole);
-            roleAdminList.add(adminRole);
 
-            Role doctorRole = new Role();
-            doctorRole.setRoleName(RoleName.ROLE_DOCTOR);
-            List<Role> roleDoctorList = new ArrayList<>();
-            roleRepository.save(doctorRole);
-            roleDoctorList.add(doctorRole);
+        Optional<Role> roleExists = roleRepository.findByRoleName(RoleName.ROLE_ADMIN);
 
-            Role headNurseRole = new Role();
-            headNurseRole.setRoleName(RoleName.ROLE_HEADNURSE);
-            List<Role> roleHeadNurseList = new ArrayList<>();
-            roleRepository.save(headNurseRole);
-            roleHeadNurseList.add(headNurseRole);
+        if (roleExists.isEmpty()) {
+            try {
+                Role adminRole = new Role();
+                adminRole.setRoleName(RoleName.ROLE_ADMIN);
+                roleRepository.save(adminRole);
+                List<Role> roleAdminList = new ArrayList<>();
+                roleRepository.save(adminRole);
+                roleAdminList.add(adminRole);
 
-            Role attendantRole = new Role();
-            attendantRole.setRoleName(RoleName.ROLE_ATTENDANT);
+                Role doctorRole = new Role();
+                doctorRole.setRoleName(RoleName.ROLE_DOCTOR);
+                List<Role> roleDoctorList = new ArrayList<>();
+                roleRepository.save(doctorRole);
+                roleDoctorList.add(doctorRole);
 
-            List<Role> roleAttendantList = new ArrayList<>();
-            roleRepository.save(attendantRole);
-            roleAttendantList.add(attendantRole);
+                Role headNurseRole = new Role();
+                headNurseRole.setRoleName(RoleName.ROLE_HEADNURSE);
+                List<Role> roleHeadNurseList = new ArrayList<>();
+                roleRepository.save(headNurseRole);
+                roleHeadNurseList.add(headNurseRole);
 
+                Role attendantRole = new Role();
+                attendantRole.setRoleName(RoleName.ROLE_ATTENDANT);
 
-            UserModel admin = new UserModel();
-            admin.setUsername("admin");
-            admin.setPassword("$2a$10$ixT75lqtHwp.mwJlLLB9/.mLJGDaS7IF5PeYszZNtVvS2SchzS9/u");
-            admin.setRoles(roleAdminList);
+                List<Role> roleAttendantList = new ArrayList<>();
+                roleRepository.save(attendantRole);
+                roleAttendantList.add(attendantRole);
 
-            userRepository.save(admin);
+                UserModel admin = new UserModel();
+                admin.setUsername("admin");
+                admin.setPassword("$2a$10$.K3cl.JIYLFLQpbl5QphwOdvuWg14kEZD4zVi/F.HGX3ayM5CkDA.");
+                admin.setRoles(roleAdminList);
 
-            UserModel headnurse = new UserModel();
-            headnurse.setUsername("headnurse");
-            headnurse.setPassword("$2a$10$ixT75lqtHwp.mwJlLLB9/.mLJGDaS7IF5PeYszZNtVvS2SchzS9/u");
-            headnurse.setRoles(roleHeadNurseList);
+                userRepository.save(admin);
 
-            userRepository.save(headnurse);
+                UserModel headnurse = new UserModel();
+                headnurse.setUsername("headnurse");
+                headnurse.setPassword("$2a$10$.K3cl.JIYLFLQpbl5QphwOdvuWg14kEZD4zVi/F.HGX3ayM5CkDA.");
+                headnurse.setRoles(roleHeadNurseList);
 
-            UserModel doctor = new UserModel();
-            doctor.setUsername("doctor");
-            doctor.setPassword("$2a$10$ixT75lqtHwp.mwJlLLB9/.mLJGDaS7IF5PeYszZNtVvS2SchzS9/u");
-            doctor.setRoles(roleDoctorList);
+                userRepository.save(headnurse);
 
-            userRepository.save(doctor);
+                UserModel doctor = new UserModel();
+                doctor.setUsername("doctor");
+                doctor.setPassword("$2a$10$.K3cl.JIYLFLQpbl5QphwOdvuWg14kEZD4zVi/F.HGX3ayM5CkDA.");
+                doctor.setRoles(roleDoctorList);
 
-            UserModel attendant = new UserModel();
-            attendant.setUsername("attendant");
-            attendant.setPassword("$2a$10$ixT75lqtHwp.mwJlLLB9/.mLJGDaS7IF5PeYszZNtVvS2SchzS9/u");
-            attendant.setRoles(roleAttendantList);
+                userRepository.save(doctor);
 
-            userRepository.save(attendant);
-        } catch (RuntimeException e) {
-            System.out.println("Default user already registered");
+                UserModel attendant = new UserModel();
+                attendant.setUsername("attendant");
+                attendant.setPassword("$2a$10$.K3cl.JIYLFLQpbl5QphwOdvuWg14kEZD4zVi/F.HGX3ayM5CkDA.");
+                attendant.setRoles(roleAttendantList);
+
+                userRepository.save(attendant);
+            } catch (RuntimeException e) {
+                log.info("Error create default users");
+            }
         }
+
+        log.info("Default user already registered");
 
     }
 }

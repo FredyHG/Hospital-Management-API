@@ -19,16 +19,24 @@ public class AppointmentGetReturnObject {
 
     @JsonIgnore
     private Long patientId;
+
     @JsonIgnore
     private Long doctorId;
+
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date appointmentDate;
+
     private String patientName;
+
     private String doctorName;
+
     private Boolean patientAttended;
+
     private String drugAllergy;
+
     @JsonIgnore
     private Doctor doctor;
+
     @JsonIgnore
     private Patients patients;
 

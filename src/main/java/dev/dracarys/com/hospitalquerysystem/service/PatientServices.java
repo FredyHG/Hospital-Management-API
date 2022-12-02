@@ -4,6 +4,7 @@ import dev.dracarys.com.hospitalquerysystem.dominio.Patients;
 import dev.dracarys.com.hospitalquerysystem.mapper.PatientMapper;
 import dev.dracarys.com.hospitalquerysystem.repository.PatientsRepository;
 import dev.dracarys.com.hospitalquerysystem.requests.patient.PatientPostRequestBody;
+import dev.dracarys.com.hospitalquerysystem.util.ConvertLocalDateToDateType;
 import dev.dracarys.com.hospitalquerysystem.util.TitleCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,8 +25,13 @@ public class PatientServices {
 
     @Transactional
     public ResponseEntity<Object> save(PatientPostRequestBody patients){
+
+        System.out.println("Teste");
+
         Optional<Patients> patientToBeConvert = patientsRepository.findByCpf(patients.getCpf());
         Optional<Patients> patientToBeSaved = Optional.of(PatientMapper.INSTANCE.toPatient(patients));
+
+
 
         if(patientToBeConvert.isPresent()){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("The patient is already registered");
@@ -35,6 +41,7 @@ public class PatientServices {
         }
         patientToBeSaved.get().setFirstName(TitleCase.convertToTitleCaseIteratingChars(patientToBeSaved.get().getFirstName()));
         patientToBeSaved.get().setLastName(TitleCase.convertToTitleCaseIteratingChars(patientToBeSaved.get().getLastName()));
+        patientToBeSaved.get().setBirthdate(ConvertLocalDateToDateType.convertFrom(patients.getBirthdate()));
 
         patientsRepository.save(patientToBeSaved.get());
         return ResponseEntity.status(HttpStatus.CREATED).body("Patient created successfully");

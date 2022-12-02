@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 @Data
@@ -27,6 +28,7 @@ public class AppointmentPostRequestBody {
     private String crmDoctor;
 
     @NotEmpty
+    @Pattern(regexp = "^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$", message = "Cpf mal formatado")
     private String cpfPatient;
 
 }

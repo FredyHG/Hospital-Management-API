@@ -2,6 +2,7 @@ server:
   error:
     include-stacktrace: on_param
 spring:
+
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
@@ -9,9 +10,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
+    open-in-view: false
 logging:
   level:
     org:
       hibernate:
-        SQL: DEBUG
+        SQL: off
