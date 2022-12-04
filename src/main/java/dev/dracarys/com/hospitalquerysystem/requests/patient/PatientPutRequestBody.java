@@ -36,6 +36,4 @@ public class PatientPutRequestBody {
     @Length(max = 15)
     private String phone;
 
-    @Length(max = 15)
-    private String susCard;
 }

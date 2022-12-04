@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-12-01T22:56:09-0300",
+    date = "2022-12-03T17:44:24-0300",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 18.0.2.1 (Oracle Corporation)"
 )
 @Component
@@ -31,7 +31,6 @@ public class PatientMapperImpl extends PatientMapper {
             patients.birthdate( Date.from( patientsPostRequestBody.getBirthdate().atStartOfDay( ZoneOffset.UTC ).toInstant() ) );
         }
         patients.phone( patientsPostRequestBody.getPhone() );
-        patients.susCard( patientsPostRequestBody.getSusCard() );
 
         return patients.build();
     }
@@ -50,7 +49,6 @@ public class PatientMapperImpl extends PatientMapper {
         patients.cpf( patientsPutRequestBody.getCpf() );
         patients.birthdate( patientsPutRequestBody.getBirthdate() );
         patients.phone( patientsPutRequestBody.getPhone() );
-        patients.susCard( patientsPutRequestBody.getSusCard() );
 
         return patients.build();
     }

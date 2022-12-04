@@ -14,8 +14,6 @@ import dev.dracarys.com.hospitalquerysystem.requests.stay.StayPutRequestBody;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
@@ -31,7 +29,7 @@ public class StayServices {
     private final StayRepository stayRepository;
     ModelMapper modelMapper = new ModelMapper();
 
-    public ResponseEntity<Object> createNewStay(StayPostRequestBody stayPostRequestBody){
+    public void createNewStay(StayPostRequestBody stayPostRequestBody){
 
         Stay stayToBeSaved = StayMapper.INSTANCE.toStay(stayPostRequestBody);
 
@@ -40,32 +38,17 @@ public class StayServices {
             Optional<Doctor> doctorToBeSaved = doctorRepository.findByCrm(stayPostRequestBody.getCrmDoctor());
             Optional<Patients> patientsToBeSaved = patientsRepository.findByCpf(stayPostRequestBody.getCpfPatient());
 
-            if (doctorToBeSaved.isPresent() && patientsToBeSaved.isPresent()) {
-                Optional<Stay> stayExists = stayRepository.findByDoctorAndPatient(doctorToBeSaved.get(), patientsToBeSaved.get());
+            if(doctorToBeSaved.isPresent() && patientsToBeSaved.isPresent()){
+                stayToBeSaved.setDoctor(doctorToBeSaved.get());
+                stayToBeSaved.setPatient(patientsToBeSaved.get());
 
-                if (stayExists.isPresent()) {
-                    return ResponseEntity.status(HttpStatus.CONFLICT).body("There is already a pending stay for this patient");
-                }
+                stayRepository.save(stayToBeSaved);
             }
 
-            if (doctorToBeSaved.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Doctor not found");
-            }
 
-            if (patientsToBeSaved.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Patient not found");
-            }
-
-            stayToBeSaved.setDoctor(doctorToBeSaved.get());
-            stayToBeSaved.setPatient(patientsToBeSaved.get());
-
-            stayRepository.save(stayToBeSaved);
-
-            return ResponseEntity.status(HttpStatus.CREATED).body("Stay create successfully!");
         }
 
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Check the information and try again");
     }
 
     public List<StayGetReturnObject> listAllStays() {
@@ -89,7 +72,7 @@ public class StayServices {
         return staysDtoList;
     }
 
-     public ResponseEntity<Object> editStayInfo(StayPutRequestBody stayPutRequestBody) {
+     public Optional<Stay> editStayInfo(StayPutRequestBody stayPutRequestBody) {
          Optional<Doctor> doctor = doctorRepository.findByCrm(stayPutRequestBody.getCrmDoctor());
          Optional<Patients> patients = patientsRepository.findByCpf(stayPutRequestBody.getCpfPatient());
 
@@ -104,14 +87,15 @@ public class StayServices {
                 stay.get().setStatus(stayPutRequestBody.getStatus());
                 stay.get().setDrugAllergy(stayPutRequestBody.getDrugAllergy());
 
-                return new ResponseEntity<>(stayRepository.save(stay.get()), HttpStatus.OK);
+
+                return Optional.of(stayRepository.save(stay.get()));
             }
         }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Stay not found, check the parameters and try again");
+        return Optional.empty();
      }
 
-    public ResponseEntity<Object> deleteStay(StayDeleteRequestBody stayDeleteRequestBody) {
+    public void deleteStay(StayDeleteRequestBody stayDeleteRequestBody) {
         Optional<Doctor> doctorToBeDelete = doctorRepository.findByCrm(stayDeleteRequestBody.getCrmDoctor());
 
         Optional<Patients> patientToBeDelete = patientsRepository.findByCpf(stayDeleteRequestBody.getCpfPatient());
@@ -120,13 +104,12 @@ public class StayServices {
             Optional<Stay> stayToBeDelete = stayRepository.findByDoctorAndPatient(
                     doctorToBeDelete.get(), patientToBeDelete.get());
 
-            if(stayToBeDelete.isPresent()){
-               stayRepository.delete(stayToBeDelete.get());
-               return ResponseEntity.status(HttpStatus.OK).body("Stay delete successfully");
-            }
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Stay not found");
+            stayToBeDelete.ifPresent(stayRepository::delete);
         }
+    }
 
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("Check parameters and try again");
+    public Optional<Stay> findStayByDoctorAndPatient(Doctor doctor, Patients patients){
+        return stayRepository.findByDoctorAndPatient(doctor, patients);
     }
 }
+

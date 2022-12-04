@@ -8,12 +8,15 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.apache.coyote.Response;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/hospital/patients")
@@ -27,11 +30,10 @@ public class PatientController {
     @Operation(summary = "Find Patient by name, return list", description = "To perform the request, it is necessary to have the permission of (HEADNURSE / ATTENDANT)", tags = {"PATIENTS"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Success return patient list"),
-            @ApiResponse(responseCode = "404", description = "Patient not found"),
             @ApiResponse(responseCode = "401", description = "Unauthorized request")
     })
     public ResponseEntity<Object> findByName(@PathVariable String name) {
-        return patientService.findByName(name);
+        return ResponseEntity.status(HttpStatus.OK).body(patientService.findByName(name));
     }
 
     @GetMapping("/list")
@@ -58,34 +60,38 @@ public class PatientController {
     @Operation(summary = "Create new Patient", description = "To perform the request, it is necessary to have the permission of (ATTENDANT)", tags = {"PATIENTS"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Patient created successfully"),
-            @ApiResponse(responseCode = "409", description = "Patient already exists"),
+            @ApiResponse(responseCode = "400", description = "Patient already exists"),
             @ApiResponse(responseCode = "400", description = "Invalid arguments in request body"),
             @ApiResponse(responseCode = "401", description = "Unauthorized request")
     })
     public ResponseEntity<Object> save(@RequestBody @Valid PatientPostRequestBody patient){
-        return patientService.save(patient);
-    }
 
-    @DeleteMapping("/delete/{id}")
-    @Operation(summary = "Delete patient by id for ADMIN", description = "To perform the request, it is necessary to have the permission of (ADMIN)", tags = {"PATIENTS"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "404", description = "Patient not found"),
-            @ApiResponse(responseCode = "200", description = "Patient deleted successfully"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized request")
-    })
-    public ResponseEntity<Object> deleteById(@PathVariable Long id){
-        return patientService.deleteById(id);
+        Optional<Patients> patientToBeConvert = patientService.findByCPF(patient.getCpf());
+
+        if(patientToBeConvert.isPresent()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The patient is already registered");
+        }
+
+        patientService.save(patient);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Patient created successfully");
     }
 
     @DeleteMapping("/delete/cpf/{cpf}")
     @Operation(summary = "Delete Patient by cpf", description = "To perform the request, it is necessary to have the permission of (HEADNURSE)", tags = {"PATIENTS"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "404", description = "Patient not found"),
-            @ApiResponse(responseCode = "200", description = "Patient deleted successfully"),
+            @ApiResponse(responseCode = "400", description = "Patient not found"),
+            @ApiResponse(responseCode = "204", description = "Patient deleted successfully"),
             @ApiResponse(responseCode = "401", description = "Unauthorized request")
     })
     public ResponseEntity<Object> deleteByCpf(@PathVariable String cpf){
-        return patientService.deleteByCpf(cpf);
+
+        Optional<Patients> patientExist = patientService.findByCPF(cpf);
+        if(patientExist.isEmpty()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Patient wasn't found");
+        }
+
+        patientService.deleteByCpf(cpf);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Patient deleted sucessfully");
     }
 
 

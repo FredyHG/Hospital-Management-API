@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface StayRepository extends JpaRepository<Stay, Long> {
 
-    @Query(value = "SELECT p FROM Stay p WHERE p.doctor = :doctor AND p.patient = :patient")
+    @Query(value = "SELECT p FROM Stay p WHERE p.doctor = :doctor AND p.patient = :patient AND p.status = dev.dracarys.com.hospitalquerysystem.enums.StatusStay.OBSERVATION OR p.status = dev.dracarys.com.hospitalquerysystem.enums.StatusStay.ADMITTED")
     Optional<Stay> findByDoctorAndPatient(@Param("doctor") Doctor doctor, @Param("patient") Patients patients);
 
 }

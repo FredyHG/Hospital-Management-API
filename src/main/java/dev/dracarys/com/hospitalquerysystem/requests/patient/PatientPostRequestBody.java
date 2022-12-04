@@ -1,12 +1,16 @@
 package dev.dracarys.com.hospitalquerysystem.requests.patient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonValueInstantiator;
+import dev.dracarys.com.hospitalquerysystem.validation.ValidCPF;
+import dev.dracarys.com.hospitalquerysystem.validation.ValidPhone;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -28,7 +32,8 @@ public class PatientPostRequestBody {
     @Length(min = 3, max = 15)
     private String lastName;
 
-    @Pattern(regexp = "^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$", message = "Invalid CPF")
+//    @Pattern(regexp = "^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$", message = "Invalid CPF")
+    @ValidCPF
     @Schema(example = "111.222.333-12")
     private String cpf;
 
@@ -36,10 +41,8 @@ public class PatientPostRequestBody {
     @Schema(example = "2004-02-20")
     private LocalDate birthdate;
 
-    @Pattern(regexp = "([0-9]{2,3})?(\\([0-9]{2}\\))([0-9]{4,5})([0-9]{4})", message = "Invalid phone")
+    @ValidPhone
     @Schema(example = "(11)998209934")
     private String phone;
 
-    @Length(max = 15)
-    private String susCard;
 }

@@ -1,6 +1,7 @@
 package dev.dracarys.com.hospitalquerysystem.dominio;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import dev.dracarys.com.hospitalquerysystem.enums.StatusStay;
 import lombok.*;
 

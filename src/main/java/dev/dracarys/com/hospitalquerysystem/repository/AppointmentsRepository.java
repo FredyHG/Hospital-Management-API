@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface AppointmentsRepository extends JpaRepository<Appointments, Long> {
 
     @Query(value = "SELECT p FROM Appointments p WHERE p.doctor = :doctor")
-    List<Appointments> findByDoctorId(@Param("doctor") Doctor doctor);
+    List<Appointments> findByDoctor(@Param("doctor") Doctor doctor);
 
     @Query(value = "SELECT p FROM Appointments p WHERE p.doctor = :doctor AND p.patient = :patient AND p.patientAttended = false")
     Optional<Appointments> findByDoctorAndPatient(@Param("doctor") Doctor doctor, @Param("patient")Patients patients);

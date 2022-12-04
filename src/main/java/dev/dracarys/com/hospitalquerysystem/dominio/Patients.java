@@ -32,7 +32,6 @@ public class Patients {
 
     private String phone;
 
-    private String susCard;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "patient")

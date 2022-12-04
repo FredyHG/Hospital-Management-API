@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/hospital/doctor")
@@ -40,44 +41,74 @@ public class DoctorController {
     @Operation(summary = "Find doctor by CRM", description = "To perform the request, it is necessary to have the permission of (HEADNURSE / ATTENDANT)", tags = {"DOCTORS"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List doctor"),
-            @ApiResponse(responseCode = "404", description = "Doctor not found"),
+            @ApiResponse(responseCode = "400", description = "Doctor not found"),
             @ApiResponse(responseCode = "401", description = "Unauthorized request")
     })
-    public ResponseEntity<DoctorGetReturnObject> findByCrm(@PathVariable String crm){
-        return doctorServices.findByCrm(crm);
+    public ResponseEntity<Object> findByCrm(@PathVariable String crm){
+
+        Optional<DoctorGetReturnObject> doctorExists = doctorServices.findByCrmReturnDTO(crm);
+
+        return doctorExists.<ResponseEntity<Object>>map(doctorGetReturnObject -> ResponseEntity.status(HttpStatus.OK)
+                .body(doctorGetReturnObject)).orElseGet(() -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Doctor wasn't found"));
+
     }
 
     @PostMapping("/create")
     @Operation(summary = "Create new doctor", description = "To perform the request, it is necessary to have the permission of (ADMIN)", tags = {"DOCTORS"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "409", description = "Doctor already exists"),
+            @ApiResponse(responseCode = "400", description = "Doctor already exists"),
             @ApiResponse(responseCode = "201", description = "Dcotor create successfully"),
             @ApiResponse(responseCode = "401", description = "Unauthorized request")
     })
     public ResponseEntity<Object> saveNewDoctor(@RequestBody @Valid DoctorPostRequestBody doctorPostRequestBody){
-        return doctorServices.save(doctorPostRequestBody);
+
+        Optional<DoctorGetReturnObject> doctorExist = doctorServices.findByCrmReturnDTO(doctorPostRequestBody.getCrm());
+
+        if(doctorExist.isPresent()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("It was not possible to save the doctor, because there is already a doctor with the same crm "
+                            + doctorPostRequestBody.getCrm() + " registered");
+        }
+
+        doctorServices.save(doctorPostRequestBody);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("Doctor save successfully");
     }
 
     @PutMapping("/admin/update")
     @Operation(summary = "Update doctor info", description = "To perform the request, it is necessary to have the permission of (ADMIN)", tags = {"DOCTORS"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Doctor info edited successfully"),
-            @ApiResponse(responseCode = "404", description = "Doctor not found"),
+            @ApiResponse(responseCode = "400", description = "Doctor not found"),
             @ApiResponse(responseCode = "401", description = "Unauthorized request")
     })
-    public ResponseEntity<Doctor> replaceDoctor(@RequestBody DoctorPutRequestBody doctorPutRequestBody){
-        return doctorServices.replace(doctorPutRequestBody);
+    public ResponseEntity<Object> replaceDoctor(@RequestBody DoctorPutRequestBody doctorPutRequestBody){
+
+        Optional<DoctorGetReturnObject> doctorExist = doctorServices.findByCrmReturnDTO(doctorPutRequestBody.getCrm());
+
+        if(doctorExist.isPresent()){
+            return ResponseEntity.status(HttpStatus.OK).body(doctorServices.replace(doctorPutRequestBody));
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Doctor wasn't found");
     }
 
     @DeleteMapping("/admin/delete/{crm}")
     @Operation(summary = "Delete doctor by CRM", description = "To perform the request, it is necessary to have the permission of (ADMIN)", tags = {"DOCTORS"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Doctor deleted successfully"),
-            @ApiResponse(responseCode = "404", description = "Doctor not found"),
+            @ApiResponse(responseCode = "400", description = "Doctor not found"),
             @ApiResponse(responseCode = "401", description = "Unauthorized request")
     })
     public ResponseEntity<Object> deleteDoctorByCrm(@PathVariable String crm){
-        return doctorServices.deleteByCrm(crm);
+
+        Optional<DoctorGetReturnObject> doctorExist = doctorServices.findByCrmReturnDTO(crm);
+
+        if(doctorExist.isEmpty()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Doctor wasn't found");
+        }
+        doctorServices.deleteByCrm(crm);
+        return ResponseEntity.status(HttpStatus.OK).body("Doctor deleted successfully");
     }
 
 }

@@ -4,16 +4,17 @@ import dev.dracarys.com.hospitalquerysystem.dominio.Appointments;
 import dev.dracarys.com.hospitalquerysystem.dominio.Doctor;
 import dev.dracarys.com.hospitalquerysystem.dominio.Patients;
 import dev.dracarys.com.hospitalquerysystem.mapper.AppointmentMapper;
-import dev.dracarys.com.hospitalquerysystem.repository.*;
+import dev.dracarys.com.hospitalquerysystem.repository.AppointmentsRepository;
+import dev.dracarys.com.hospitalquerysystem.repository.DoctorRepository;
+import dev.dracarys.com.hospitalquerysystem.repository.PatientsRepository;
 import dev.dracarys.com.hospitalquerysystem.requests.appointments.*;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,52 +52,30 @@ public class AppointmentServices {
         return appointmentsDtoList;
     }
 
-    @SuppressWarnings("DuplicatedCode")
-    public ResponseEntity<Object> save(AppointmentPostRequestBody appointmentsPostRequestBody) {
+    public void save(AppointmentPostRequestBody appointmentsPostRequestBody) {
 
 
         Appointments appointmentsToBeSaved = AppointmentMapper.INSTANCE.toAppointment(appointmentsPostRequestBody);
+        Optional<Doctor> doctorToBeSaved = doctorRepository.findByCrm(appointmentsPostRequestBody.getCrmDoctor());
+        Optional<Patients> patientsToBeSaved = patientsRepository.findByCpf(appointmentsPostRequestBody.getCpfPatient());
 
-
-        if (appointmentsPostRequestBody.getCrmDoctor() != null && appointmentsPostRequestBody.getCpfPatient() != null) {
-
-            Optional<Doctor> doctorToBeSaved = doctorRepository.findByCrm(appointmentsPostRequestBody.getCrmDoctor());
-            Optional<Patients> patientsToBeSaved = patientsRepository.findByCpf(appointmentsPostRequestBody.getCpfPatient());
-
-
-            if (doctorToBeSaved.isPresent() && patientsToBeSaved.isPresent()) {
-                Optional<Appointments> appointmentsExists = appointmentsRepository.findByDoctorAndPatient(doctorToBeSaved.get(), patientsToBeSaved.get());
-
-                if (appointmentsExists.isPresent()) {
-                    return ResponseEntity.status(HttpStatus.CONFLICT).body("There is already a pending appointment for this patient");
-                }
-            }
-
-
-            if (doctorToBeSaved.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Doctor not found");
-            }
-
-            if (patientsToBeSaved.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Patient not found");
-            }
+        if (doctorToBeSaved.isPresent() && patientsToBeSaved.isPresent()) {
 
             appointmentsToBeSaved.setDoctor(doctorToBeSaved.get());
+
             appointmentsToBeSaved.setPatient(patientsToBeSaved.get());
 
             appointmentsRepository.save(appointmentsToBeSaved);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body("Appointment create successfully!");
         }
-
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Check the information and try again");
 
     }
 
 
-    public ResponseEntity<Object> editAppointmentInfo(AppointmentPutRequestBody appointmentsPutRequestBody) {
+    public Optional<Appointments> editAppointmentInfo(AppointmentPutRequestBody appointmentsPutRequestBody) {
+
         Optional<Doctor> doctor = doctorRepository.findByCrm(appointmentsPutRequestBody.getCrmDoctor());
+
         Optional<Patients> patients = patientsRepository.findByCpf(appointmentsPutRequestBody.getCpfPatient());
 
 
@@ -110,34 +89,29 @@ public class AppointmentServices {
                 appointments.get().setPatientAttended(false);
                 appointments.get().setDrugAllergy(appointmentsPutRequestBody.getDrugAllergy());
 
-                return new ResponseEntity<>(appointmentsRepository.save(appointments.get()), HttpStatus.OK);
+                appointmentsRepository.save(appointments.get());
             }
         }
 
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("Appointment not found, check the parameters and try again");
+        return Optional.empty();
     }
 
-    public ResponseEntity<Object> deleteAppointment(AppointmentDeleteRequestBody appointmentDeleteBody) {
+    public void deleteAppointment(AppointmentDeleteRequestBody appointmentDeleteBody) {
 
-        Optional<Doctor> doctorToBeDelete = doctorRepository.findByCrm(appointmentDeleteBody.getCrmDoctor());
+        Optional<Doctor> doctor = doctorRepository.findByCrm(appointmentDeleteBody.getCrmDoctor());
 
-        Optional<Patients> patientToBeDelete = patientsRepository.findByCpf(appointmentDeleteBody.getCpfPatient());
+        Optional<Patients> patient = patientsRepository.findByCpf(appointmentDeleteBody.getCpfPatient());
 
-        if (doctorToBeDelete.isPresent() && patientToBeDelete.isPresent()) {
-            Optional<Appointments> appointmentToBeDelete = appointmentsRepository.findByDoctorAndPatient(
-                    doctorToBeDelete.get(), patientToBeDelete.get());
+        if (doctor.isPresent() && patient.isPresent()) {
 
-            if (appointmentToBeDelete.isPresent()) {
-                appointmentsRepository.delete(appointmentToBeDelete.get());
-                return ResponseEntity.status(HttpStatus.OK).body("Appointment delete successfully");
-            }
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Appointment not found");
+            Optional<Appointments> appointmentToBeDelete = appointmentsRepository.findByDoctorAndPatient(doctor.get(), patient.get());
+
+            appointmentToBeDelete.ifPresent(appointmentsRepository::delete);
+
         }
-
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("Check parameters and try again");
     }
 
-    public ResponseEntity<Object> switchPatientStatement(SwitchPatientStatementRequestBody requestBody) {
+    public void switchPatientStatement(SwitchPatientStatementRequestBody requestBody) {
         Optional<Doctor> doctor = doctorRepository.findByCrm(requestBody.getCrmDoctor());
 
         Optional<Patients> patient = patientsRepository.findByCpf(requestBody.getCpfPatient());
@@ -146,16 +120,46 @@ public class AppointmentServices {
             Optional<Appointments> appointment = appointmentsRepository.findByDoctorAndPatient(
                     doctor.get(), patient.get());
 
-            if (appointment.isPresent() && Boolean.TRUE.equals(!appointment.get().getPatientAttended())) {
+            if (appointment.isPresent()) {
                 appointment.get().setPatientAttended(true);
-                return ResponseEntity.status(HttpStatus.OK).body("Patient attended successfully");
+
+                appointmentsRepository.save(appointment.get());
             }
-            if(appointment.isPresent() && Boolean.TRUE.equals(appointment.get().getPatientAttended())){
-                return ResponseEntity.status(HttpStatus.CONFLICT).body("the patient has already been treated");
-            }
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Appointment not found");
+
+        }
+    }
+
+    public List<AppointmentGetReturnObject> findAppointmentByDoctor(Doctor doctor) {
+
+        Optional<Doctor> doctorNonPageable = doctorRepository.findByCrm(doctor.getCrm());
+
+        if (doctorNonPageable.isEmpty()) {
+            return Collections.emptyList();
         }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Appointment not found");
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
+
+        List<Appointments> appointments = appointmentsRepository.findByDoctor(doctorNonPageable.get());
+        Type listType = new TypeToken<List<AppointmentGetReturnObject>>() {
+        }.getType();
+
+        List<AppointmentGetReturnObject> appointmentsDtoList = modelMapper.map(appointments, listType);
+
+
+        appointmentsDtoList.forEach(appointmentsDto -> appointmentsDto.setPatientName(
+                patientsRepository.findById(appointmentsDto.getPatientId()).orElseThrow().getFirstName() +
+                        " " + patientsRepository.findById(appointmentsDto.getPatientId()).orElseThrow().getLastName()));
+
+        appointmentsDtoList.forEach(appointmentsDto -> appointmentsDto.setDoctorName(
+                doctorRepository.findById(doctorNonPageable.get().getId()).orElseThrow().getFirstName() +
+                        " " + doctorRepository.findById(doctorNonPageable.get().getId()).orElseThrow().getLastName()));
+
+        return appointmentsDtoList;
+    }
+
+    public Optional<Appointments> findByDoctorAndPatient(Doctor doctor, Patients patients) {
+
+        return appointmentsRepository.findByDoctorAndPatient(doctor, patients);
+
     }
 }
