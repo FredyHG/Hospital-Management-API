@@ -8,6 +8,7 @@ import dev.dracarys.com.hospitalquerysystem.requests.appointments.*;
 import dev.dracarys.com.hospitalquerysystem.service.AppointmentServices;
 import dev.dracarys.com.hospitalquerysystem.service.DoctorServices;
 import dev.dracarys.com.hospitalquerysystem.service.PatientServices;
+import dev.dracarys.com.hospitalquerysystem.util.ConvertLocalDateToDateType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -19,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,6 +58,10 @@ public class AppointmentController {
     })
     public ResponseEntity<Object> saveNewAppointment(@RequestBody AppointmentPostRequestBody appointmentsPostRequestBody) {
 
+        if(new Date().after(ConvertLocalDateToDateType.convertFrom(appointmentsPostRequestBody.getAppointmentDate()))){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The invalid date of birth");
+        }
+
         Optional<Doctor> doctorExist = doctorServices.findByCrm(appointmentsPostRequestBody.getCrmDoctor());
         Optional<Patients> patientExist = patientServices.findByCPF(appointmentsPostRequestBody.getCpfPatient());
 
@@ -91,6 +97,10 @@ public class AppointmentController {
             @ApiResponse(responseCode = "400", description = "if body is incorrect")
     })
     public ResponseEntity<Object> editAppointment(@RequestBody AppointmentPutRequestBody appointmentsPutRequestBody) {
+
+        if(new Date().after(ConvertLocalDateToDateType.convertFrom(appointmentsPutRequestBody.getAppointmentDate()))){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The invalid date of birth");
+        }
 
         Optional<Doctor> doctorExist = doctorServices.findByCrm(appointmentsPutRequestBody.getCrmDoctor());
 

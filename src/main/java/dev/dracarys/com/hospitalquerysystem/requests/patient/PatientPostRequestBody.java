@@ -1,7 +1,6 @@
 package dev.dracarys.com.hospitalquerysystem.requests.patient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonValueInstantiator;
 import dev.dracarys.com.hospitalquerysystem.validation.ValidCPF;
 import dev.dracarys.com.hospitalquerysystem.validation.ValidPhone;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -10,10 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
 @Data

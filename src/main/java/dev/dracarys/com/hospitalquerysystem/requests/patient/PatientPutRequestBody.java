@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -31,7 +31,7 @@ public class PatientPutRequestBody {
     private String cpf;
 
     @JsonFormat(pattern="yyyy-MM-dd")
-    private Date birthdate;
+    private LocalDate birthdate;
 
     @Length(max = 15)
     private String phone;

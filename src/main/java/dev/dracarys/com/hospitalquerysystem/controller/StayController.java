@@ -10,6 +10,7 @@ import dev.dracarys.com.hospitalquerysystem.requests.stay.StayPutRequestBody;
 import dev.dracarys.com.hospitalquerysystem.service.DoctorServices;
 import dev.dracarys.com.hospitalquerysystem.service.PatientServices;
 import dev.dracarys.com.hospitalquerysystem.service.StayServices;
+import dev.dracarys.com.hospitalquerysystem.util.ConvertLocalDateToDateType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +48,10 @@ public class StayController {
             @ApiResponse(responseCode = "401", description = "Unauthorized request")
     })
     public ResponseEntity<Object> createNewStay(@RequestBody StayPostRequestBody stayPostRequestBody) {
+
+        if(new Date().after(ConvertLocalDateToDateType.convertFrom(stayPostRequestBody.getStayDate()))){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The invalid date of birth");
+        }
 
         Optional<Doctor> doctorExist = doctorServices.findByCrm(stayPostRequestBody.getCrmDoctor());
         Optional<Patients> patientExist = patientServices.findByCPF(stayPostRequestBody.getCpfPatient());
@@ -86,6 +92,11 @@ public class StayController {
             @ApiResponse(responseCode = "409", description = "Body is incorrect")
     })
     public ResponseEntity<Object> editStay(@RequestBody StayPutRequestBody stayPutRequestBody) {
+
+        if(new Date().after(ConvertLocalDateToDateType.convertFrom(stayPutRequestBody.getStayDate()))){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The invalid date of birth");
+        }
+
 
         Optional<Doctor> doctorExist = doctorServices.findByCrm(stayPutRequestBody.getCrmDoctor());
 

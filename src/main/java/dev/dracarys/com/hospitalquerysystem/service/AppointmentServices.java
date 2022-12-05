@@ -8,6 +8,7 @@ import dev.dracarys.com.hospitalquerysystem.repository.AppointmentsRepository;
 import dev.dracarys.com.hospitalquerysystem.repository.DoctorRepository;
 import dev.dracarys.com.hospitalquerysystem.repository.PatientsRepository;
 import dev.dracarys.com.hospitalquerysystem.requests.appointments.*;
+import dev.dracarys.com.hospitalquerysystem.util.ConvertLocalDateToDateType;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -83,7 +84,7 @@ public class AppointmentServices {
             Optional<Appointments> appointments = appointmentsRepository.findByDoctorAndPatient(doctor.get(), patients.get());
 
             if (appointments.isPresent()) {
-                appointments.get().setAppointmentDate(appointmentsPutRequestBody.getAppointmentDate());
+                appointments.get().setAppointmentDate(ConvertLocalDateToDateType.convertFrom(appointmentsPutRequestBody.getAppointmentDate()));
                 appointments.get().setDoctor(doctor.get());
                 appointments.get().setPatient(patients.get());
                 appointments.get().setPatientAttended(false);

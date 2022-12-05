@@ -3,18 +3,19 @@ package dev.dracarys.com.hospitalquerysystem.controller;
 import dev.dracarys.com.hospitalquerysystem.dominio.Patients;
 import dev.dracarys.com.hospitalquerysystem.requests.patient.PatientPostRequestBody;
 import dev.dracarys.com.hospitalquerysystem.service.PatientServices;
+import dev.dracarys.com.hospitalquerysystem.util.ConvertLocalDateToDateType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.apache.coyote.Response;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,6 +66,10 @@ public class PatientController {
             @ApiResponse(responseCode = "401", description = "Unauthorized request")
     })
     public ResponseEntity<Object> save(@RequestBody @Valid PatientPostRequestBody patient){
+
+        if(new Date().before(ConvertLocalDateToDateType.convertFrom(patient.getBirthdate()))){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The invalid date of birth");
+        }
 
         Optional<Patients> patientToBeConvert = patientService.findByCPF(patient.getCpf());
 

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -17,7 +18,7 @@ public class AppointmentPutRequestBody {
 
     @NotEmpty
     @JsonFormat(pattern="yyyy-MM-dd")
-    private Date appointmentDate;
+    private LocalDate appointmentDate;
 
     private String drugAllergy;
 

@@ -11,6 +11,7 @@ import dev.dracarys.com.hospitalquerysystem.requests.stay.StayDeleteRequestBody;
 import dev.dracarys.com.hospitalquerysystem.requests.stay.StayGetReturnObject;
 import dev.dracarys.com.hospitalquerysystem.requests.stay.StayPostRequestBody;
 import dev.dracarys.com.hospitalquerysystem.requests.stay.StayPutRequestBody;
+import dev.dracarys.com.hospitalquerysystem.util.ConvertLocalDateToDateType;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -32,6 +33,8 @@ public class StayServices {
     public void createNewStay(StayPostRequestBody stayPostRequestBody){
 
         Stay stayToBeSaved = StayMapper.INSTANCE.toStay(stayPostRequestBody);
+
+        stayToBeSaved.setStayDate(ConvertLocalDateToDateType.convertFrom(stayPostRequestBody.getStayDate()));
 
         if (stayPostRequestBody.getCrmDoctor() != null && stayPostRequestBody.getCpfPatient() != null) {
 
@@ -80,7 +83,7 @@ public class StayServices {
             Optional<Stay>  stay = stayRepository.findByDoctorAndPatient(doctor.get(),patients.get());
 
             if(stay.isPresent()){
-                stay.get().setStayDate(stayPutRequestBody.getStayDate());
+                stay.get().setStayDate(ConvertLocalDateToDateType.convertFrom(stayPutRequestBody.getStayDate()));
                 stay.get().setDescription(stayPutRequestBody.getDescription());
                 stay.get().setPatient(patients.get());
                 stay.get().setDoctor(doctor.get());

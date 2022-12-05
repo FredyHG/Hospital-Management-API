@@ -26,6 +26,7 @@ public class PatientServices {
 
         Optional<Patients> patientToBeSaved = Optional.of(PatientMapper.INSTANCE.toPatient(patients));
 
+
         patientToBeSaved.get().setFirstName(TitleCase.convertToTitleCaseIteratingChars(patientToBeSaved.get().getFirstName()));
         patientToBeSaved.get().setLastName(TitleCase.convertToTitleCaseIteratingChars(patientToBeSaved.get().getLastName()));
         patientToBeSaved.get().setBirthdate(ConvertLocalDateToDateType.convertFrom(patients.getBirthdate()));

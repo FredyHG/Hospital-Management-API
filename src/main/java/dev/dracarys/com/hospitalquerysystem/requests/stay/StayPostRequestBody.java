@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -19,7 +20,7 @@ public class StayPostRequestBody {
 
     @NotEmpty
     @JsonFormat(pattern="yyyy-MM-dd")
-    private Date stayDate;
+    private LocalDate stayDate;
 
     @NotEmpty(message = "The field drug allergy cannot be empty")
     private String drugAllergy;

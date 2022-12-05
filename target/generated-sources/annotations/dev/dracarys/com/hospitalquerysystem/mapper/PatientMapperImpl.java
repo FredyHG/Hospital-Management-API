@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-12-03T17:44:24-0300",
+    date = "2022-12-04T14:16:56-0300",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 18.0.2.1 (Oracle Corporation)"
 )
 @Component
@@ -47,7 +47,9 @@ public class PatientMapperImpl extends PatientMapper {
         patients.firstName( patientsPutRequestBody.getFirstName() );
         patients.lastName( patientsPutRequestBody.getLastName() );
         patients.cpf( patientsPutRequestBody.getCpf() );
-        patients.birthdate( patientsPutRequestBody.getBirthdate() );
+        if ( patientsPutRequestBody.getBirthdate() != null ) {
+            patients.birthdate( Date.from( patientsPutRequestBody.getBirthdate().atStartOfDay( ZoneOffset.UTC ).toInstant() ) );
+        }
         patients.phone( patientsPutRequestBody.getPhone() );
 
         return patients.build();
