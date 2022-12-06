@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.Optional;
 
 @Service
@@ -23,6 +24,8 @@ public class DoctorServices {
     private final DoctorRepository doctorRepository;
 
     private final AppointmentServices appointmentServices;
+
+    private final StayServices stayServices;
 
     ModelMapper modelMapper = new ModelMapper();
 
@@ -40,6 +43,8 @@ public class DoctorServices {
 
         doctorDtoView.setAppointmentsView(appointmentServices.findAppointmentByDoctor(doctorToBeConvert.get()));
 
+        doctorDtoView.setStaysView(stayServices.findStayByDoctor(doctorToBeConvert.get()));
+
         return Optional.of(doctorDtoView);
 
     }
@@ -56,9 +61,13 @@ public class DoctorServices {
 
     }
 
-
     public Page<Doctor> listAllDoctors(Pageable pageable) {
-        return doctorRepository.findAll(pageable);
+
+        Page<Doctor> doctorList = doctorRepository.findAll(pageable);
+
+        doctorList.forEach(doctors -> doctors.setAppointments(Collections.emptyList()));
+
+        return doctorList;
     }
 
 

@@ -1,5 +1,6 @@
 package dev.dracarys.com.hospitalquerysystem.service;
 
+import dev.dracarys.com.hospitalquerysystem.dominio.Appointments;
 import dev.dracarys.com.hospitalquerysystem.dominio.Doctor;
 import dev.dracarys.com.hospitalquerysystem.dominio.Patients;
 import dev.dracarys.com.hospitalquerysystem.dominio.Stay;
@@ -7,6 +8,7 @@ import dev.dracarys.com.hospitalquerysystem.mapper.StayMapper;
 import dev.dracarys.com.hospitalquerysystem.repository.DoctorRepository;
 import dev.dracarys.com.hospitalquerysystem.repository.PatientsRepository;
 import dev.dracarys.com.hospitalquerysystem.repository.StayRepository;
+import dev.dracarys.com.hospitalquerysystem.requests.appointments.AppointmentGetReturnObject;
 import dev.dracarys.com.hospitalquerysystem.requests.stay.StayDeleteRequestBody;
 import dev.dracarys.com.hospitalquerysystem.requests.stay.StayGetReturnObject;
 import dev.dracarys.com.hospitalquerysystem.requests.stay.StayPostRequestBody;
@@ -18,6 +20,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -113,6 +116,34 @@ public class StayServices {
 
     public Optional<Stay> findStayByDoctorAndPatient(Doctor doctor, Patients patients){
         return stayRepository.findByDoctorAndPatient(doctor, patients);
+    }
+
+    public List<StayGetReturnObject> findStayByDoctor(Doctor doctor) {
+
+        Optional<Doctor> doctorNonPageable = doctorRepository.findByCrm(doctor.getCrm());
+
+        if (doctorNonPageable.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
+
+        List<Stay> appointments = stayRepository.findByDoctor(doctorNonPageable.get());
+        Type listType = new TypeToken<List<StayGetReturnObject>>() {
+        }.getType();
+
+        List<StayGetReturnObject> stayDtoList = modelMapper.map(appointments, listType);
+
+
+        stayDtoList.forEach(stays -> stays.setPatientName(
+                patientsRepository.findById(stays.getPatientId()).orElseThrow().getFirstName() +
+                        " " + patientsRepository.findById(stays.getPatientId()).orElseThrow().getLastName()));
+
+        stayDtoList.forEach(staysDto -> staysDto.setDoctorName(
+                doctorRepository.findById(doctorNonPageable.get().getId()).orElseThrow().getFirstName() +
+                        " " + doctorRepository.findById(doctorNonPageable.get().getId()).orElseThrow().getLastName()));
+
+        return stayDtoList;
     }
 }
 

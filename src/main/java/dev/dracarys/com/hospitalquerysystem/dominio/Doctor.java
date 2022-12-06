@@ -32,4 +32,8 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor")
     private List<Appointments> appointments;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "doctor")
+    private List<Stay> stay;
+
 }

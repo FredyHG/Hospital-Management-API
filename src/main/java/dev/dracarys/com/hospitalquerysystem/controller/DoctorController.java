@@ -34,7 +34,7 @@ public class DoctorController {
             @ApiResponse(responseCode = "401", description = "Unauthorized request")
     })
     public ResponseEntity<Page<Doctor>> listAllDoctor(Pageable pageable){
-        return new ResponseEntity<>(doctorServices.listAllDoctors(pageable), HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(doctorServices.listAllDoctors(pageable));
     }
 
     @GetMapping("/find/{crm}")

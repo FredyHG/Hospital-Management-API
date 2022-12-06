@@ -158,6 +158,7 @@ public class AppointmentServices {
         return appointmentsDtoList;
     }
 
+
     public Optional<Appointments> findByDoctorAndPatient(Doctor doctor, Patients patients) {
 
         return appointmentsRepository.findByDoctorAndPatient(doctor, patients);
