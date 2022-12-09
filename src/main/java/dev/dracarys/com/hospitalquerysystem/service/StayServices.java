@@ -19,6 +19,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
@@ -26,6 +27,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class StayServices {
 
     private final DoctorRepository doctorRepository;
@@ -117,6 +119,7 @@ public class StayServices {
     public Optional<Stay> findStayByDoctorAndPatient(Doctor doctor, Patients patients){
         return stayRepository.findByDoctorAndPatient(doctor, patients);
     }
+
 
     public List<StayGetReturnObject> findStayByDoctor(Doctor doctor) {
 

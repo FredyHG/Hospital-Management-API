@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +44,7 @@ public class PatientController {
             @ApiResponse(responseCode = "201", description = "Success return patient pageable list"),
             @ApiResponse(responseCode = "401", description = "Unauthorized request")
     })
-    public ResponseEntity<Object> listAllPatients(Pageable pageable){
+    public ResponseEntity<Object> listAllPatients(@ParameterObject Pageable pageable){
         return ResponseEntity.ok(patientService.listAllPatients(pageable));
     }
 

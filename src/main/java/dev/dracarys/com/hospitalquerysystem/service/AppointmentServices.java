@@ -14,6 +14,8 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
+
+import javax.transaction.Transactional;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
@@ -21,6 +23,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AppointmentServices {
 
     private final AppointmentsRepository appointmentsRepository;

@@ -1,15 +1,21 @@
 package dev.dracarys.com.hospitalquerysystem.controller;
 
 import dev.dracarys.com.hospitalquerysystem.dominio.Doctor;
+import dev.dracarys.com.hospitalquerysystem.requests.doctor.DoctorDtoViewAll;
 import dev.dracarys.com.hospitalquerysystem.requests.doctor.DoctorGetReturnObject;
 import dev.dracarys.com.hospitalquerysystem.requests.doctor.DoctorPostRequestBody;
 import dev.dracarys.com.hospitalquerysystem.requests.doctor.DoctorPutRequestBody;
 import dev.dracarys.com.hospitalquerysystem.service.DoctorServices;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -33,7 +39,7 @@ public class DoctorController {
             @ApiResponse(responseCode = "200", description = "List all doctor"),
             @ApiResponse(responseCode = "401", description = "Unauthorized request")
     })
-    public ResponseEntity<Page<Doctor>> listAllDoctor(Pageable pageable){
+    public ResponseEntity<Page<DoctorDtoViewAll>> listAllDoctor(@ParameterObject Pageable pageable){
         return ResponseEntity.status(HttpStatus.OK).body(doctorServices.listAllDoctors(pageable));
     }
 
