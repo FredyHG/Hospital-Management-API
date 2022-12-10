@@ -3,6 +3,9 @@ package dev.dracarys.com.hospitalquerysystem.repository;
 import dev.dracarys.com.hospitalquerysystem.dominio.Appointments;
 import dev.dracarys.com.hospitalquerysystem.dominio.Doctor;
 import dev.dracarys.com.hospitalquerysystem.dominio.Patients;
+import dev.dracarys.com.hospitalquerysystem.repository.util.CreateAppointment;
+import dev.dracarys.com.hospitalquerysystem.repository.util.DoctorCreate;
+import dev.dracarys.com.hospitalquerysystem.repository.util.PatientCreate;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Date;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,10 +31,16 @@ class AppointmentsRepositoryTest {
     private PatientsRepository patientsRepository;
 
     @Test
-    @DisplayName("Tests for Appointment repository")
+    @DisplayName("SavePersistAppointmentWhenSuccessful")
     void save_PersistAppointment_WhenSuccessful(){
 
-        Appointments appointmentToBeSaved = createAppointment();
+        Doctor doctor = DoctorCreate.createValidDoctor();
+        doctorRepository.save(doctor);
+
+        Patients patients = PatientCreate.createValidPatient();
+        patientsRepository.save(patients);
+
+        Appointments appointmentToBeSaved = CreateAppointment.createValidAppointment(doctor, patients);
         appointmentsRepository.save(appointmentToBeSaved);
 
         Assertions.assertThat(appointmentToBeSaved).isNotNull();
@@ -39,30 +49,29 @@ class AppointmentsRepositoryTest {
         Assertions.assertThat(appointmentToBeSaved.getDoctor()).isEqualTo(doctorRepository.findByCrm("123").get());
     }
 
-    private Appointments createAppointment(){
-        Doctor doctor = Doctor.builder()
-                .firstName("Fredy")
-                .lastName("Gomes")
-                .crm("123")
-                .build();
+    @Test
+    @DisplayName("RemoveAppointmentWhenSuccessful")
+    void delete_PersistAppointment_WhenSuccessful(){
 
+        Doctor doctor = DoctorCreate.createValidDoctor();
         doctorRepository.save(doctor);
 
-        Patients patients = Patients.builder()
-                .firstName("Arthur")
-                .lastName("Romas")
-                .cpf("123")
-                .build();
-
+        Patients patients = PatientCreate.createValidPatient();
         patientsRepository.save(patients);
 
-        return Appointments.builder()
-                .appointmentDate(new Date())
-                .patient(patients)
-                .doctor(doctor)
-                .patientAttended(false)
-                .drugAllergy("Pinga")
-                .build();
+        Appointments appointmentToBeSaved = CreateAppointment.createValidAppointment(doctor, patients);
+        appointmentsRepository.save(appointmentToBeSaved);
+
+        Optional<Appointments> appointmentsExist = appointmentsRepository.findByDoctorAndPatient(appointmentToBeSaved.getDoctor(), appointmentToBeSaved.getPatient());
+
+        Assertions.assertThat(appointmentsExist).isNotEmpty();
+        Assertions.assertThat(appointmentsExist).get().isEqualTo(appointmentToBeSaved);
+
+        appointmentsRepository.delete(appointmentsExist.get());
+
+        Optional<Appointments> appointmentsDeleted = appointmentsRepository.findByDoctorAndPatient(appointmentToBeSaved.getDoctor(), appointmentToBeSaved.getPatient());
+
+        Assertions.assertThat(appointmentsDeleted).isEmpty();
 
     }
 
