@@ -1,7 +1,7 @@
 package dev.dracarys.com.hospitalquerysystem.repository;
 
 import dev.dracarys.com.hospitalquerysystem.dominio.Doctor;
-import dev.dracarys.com.hospitalquerysystem.repository.util.DoctorCreate;
+import dev.dracarys.com.hospitalquerysystem.util.DoctorCreate;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

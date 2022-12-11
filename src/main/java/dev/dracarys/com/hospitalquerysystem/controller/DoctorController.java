@@ -22,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.Doc;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -63,22 +64,24 @@ public class DoctorController {
     @Operation(summary = "Create new doctor", description = "To perform the request, it is necessary to have the permission of (ADMIN)", tags = {"DOCTORS"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "400", description = "Doctor already exists"),
-            @ApiResponse(responseCode = "201", description = "Dcotor create successfully"),
+            @ApiResponse(responseCode = "201", description = "Doctor create successfully"),
             @ApiResponse(responseCode = "401", description = "Unauthorized request")
     })
     public ResponseEntity<Object> saveNewDoctor(@RequestBody @Valid DoctorPostRequestBody doctorPostRequestBody){
 
-        Optional<DoctorGetReturnObject> doctorExist = doctorServices.findByCrmReturnDTO(doctorPostRequestBody.getCrm());
+        Optional<Doctor> doctorExist = doctorServices.findByCrm(doctorPostRequestBody.getCrm());
 
         if(doctorExist.isPresent()){
+            System.out.println("d");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+
                     .body("It was not possible to save the doctor, because there is already a doctor with the same crm "
                             + doctorPostRequestBody.getCrm() + " registered");
         }
 
-        doctorServices.save(doctorPostRequestBody);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("Doctor save successfully");
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(doctorServices.save(doctorPostRequestBody));
     }
 
     @PutMapping("/admin/update")

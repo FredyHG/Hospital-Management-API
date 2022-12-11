@@ -50,7 +50,7 @@ public class PatientServices {
     }
 
     public List<Patients> findByFirstNameAndLastName(String firstName, String lastName) {
-        return patientsRepository.findPatientByfirstNameAndLastName(firstName, lastName);
+        return patientsRepository.findPatientByFirstNameAndLastName(firstName, lastName);
     }
 
     public void deleteByCpf(String cpf) {

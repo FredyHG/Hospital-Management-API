@@ -15,11 +15,9 @@ public interface PatientsRepository extends JpaRepository<Patients, Long> {
     List<Patients> findByName(@Param("firstName") String name);
 
     @Query(value = "SELECT p FROM Patients p WHERE p.firstName = :firstName AND p.lastName = :lastName")
-    List<Patients> findPatientByfirstNameAndLastName(@Param("firstName") String firstName, @Param("lastName") String lastName);
+    List<Patients> findPatientByFirstNameAndLastName(@Param("firstName") String firstName, @Param("lastName") String lastName);
 
     @Query(value = "SELECT p FROM Patients p WHERE p.cpf = :cpf")
     Optional<Patients> findByCpf(@Param("cpf") String cpf);
-
-
 
 }

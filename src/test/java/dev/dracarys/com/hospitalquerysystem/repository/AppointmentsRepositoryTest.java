@@ -3,19 +3,16 @@ package dev.dracarys.com.hospitalquerysystem.repository;
 import dev.dracarys.com.hospitalquerysystem.dominio.Appointments;
 import dev.dracarys.com.hospitalquerysystem.dominio.Doctor;
 import dev.dracarys.com.hospitalquerysystem.dominio.Patients;
-import dev.dracarys.com.hospitalquerysystem.repository.util.CreateAppointment;
-import dev.dracarys.com.hospitalquerysystem.repository.util.DoctorCreate;
-import dev.dracarys.com.hospitalquerysystem.repository.util.PatientCreate;
+import dev.dracarys.com.hospitalquerysystem.util.CreateAppointment;
+import dev.dracarys.com.hospitalquerysystem.util.DoctorCreate;
+import dev.dracarys.com.hospitalquerysystem.util.PatientCreate;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.util.Date;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @DisplayName("Appointment repository test")

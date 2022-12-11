@@ -93,13 +93,15 @@ public class DoctorServices {
 
     }
 
-    public void save(DoctorPostRequestBody doctorPostRequestBody) {
+    public String save(DoctorPostRequestBody doctorPostRequestBody) {
 
         doctorPostRequestBody.setFirstName(TitleCase.convertToTitleCaseIteratingChars(doctorPostRequestBody.getFirstName()));
 
         doctorPostRequestBody.setLastName(TitleCase.convertToTitleCaseIteratingChars(doctorPostRequestBody.getLastName()));
 
         doctorRepository.save(DoctorMapper.INSTANCE.toDoctor(doctorPostRequestBody));
+
+        return "Doctor saved successful";
     }
 
     public void deleteByCrm(String crm) {

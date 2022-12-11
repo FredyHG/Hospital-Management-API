@@ -1,4 +1,4 @@
-package dev.dracarys.com.hospitalquerysystem.repository.util;
+package dev.dracarys.com.hospitalquerysystem.util;
 
 import dev.dracarys.com.hospitalquerysystem.dominio.Doctor;
 import dev.dracarys.com.hospitalquerysystem.dominio.Patients;
