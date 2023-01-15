@@ -27,6 +27,8 @@ class AppointmentsRepositoryTest {
     @Autowired
     private PatientsRepository patientsRepository;
 
+
+
     @Test
     @DisplayName("SavePersistAppointmentWhenSuccessful")
     void save_PersistAppointment_WhenSuccessful(){
@@ -71,5 +73,6 @@ class AppointmentsRepositoryTest {
         Assertions.assertThat(appointmentsDeleted).isEmpty();
 
     }
+
 
 }

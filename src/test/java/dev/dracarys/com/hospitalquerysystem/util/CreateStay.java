@@ -20,4 +20,16 @@ public class CreateStay {
                 .build();
 
     }
+
+    public static Stay createValidStayForStayTest(Doctor doctor, Patients patient){
+        return Stay.builder()
+                .stayDate(new Date())
+                .drugAllergy("Pinga Rosa")
+                .description("please help him :(")
+                .status(StatusStay.ADMITTED)
+                .doctor(doctor)
+                .patient(patient)
+                .build();
+
+    }
 }

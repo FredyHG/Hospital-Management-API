@@ -20,8 +20,6 @@ class DoctorRepositoryTest {
 
 
 
-
-
     @Test
     @DisplayName("SavePersistDoctorWhenSuccessful")
     void save_PersistDoctor_WhenSuccessful(){

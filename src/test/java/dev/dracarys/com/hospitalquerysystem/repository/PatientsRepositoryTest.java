@@ -20,7 +20,7 @@ class PatientsRepositoryTest {
 
     @Test
     @DisplayName("SavePersistPatientWhenSuccessful")
-    void save_PersistDoctor_WhenSuccessful(){
+    void save_PersistDoctor_WhenSuccessful2(){
 
         Patients patientToBeSaved = PatientCreate.createValidPatient();
         patientsRepository.save(patientToBeSaved);
@@ -35,7 +35,7 @@ class PatientsRepositoryTest {
 
     @Test
     @DisplayName("RemovePatientWhenSuccessful")
-    void delete_PersistDoctor_WhenSuccessful(){
+    void delete_PersistDoctor_WhenSuccessful1(){
         Patients patientToBeSaved = PatientCreate.createValidPatient();
         patientsRepository.save(patientToBeSaved);
 

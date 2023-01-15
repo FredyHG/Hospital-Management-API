@@ -17,4 +17,14 @@ public class PatientCreate {
                 .cpf("123")
                 .build();
     }
+
+    public static Patients createValidPatientForStayTest(){
+        return Patients.builder()
+                .firstName("Arthur")
+                .lastName("Romas")
+                .stays(Collections.emptyList())
+                .appointments(Collections.emptyList())
+                .cpf("1234")
+                .build();
+    }
 }

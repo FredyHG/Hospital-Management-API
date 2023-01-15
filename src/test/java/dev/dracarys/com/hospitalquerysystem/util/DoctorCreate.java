@@ -13,7 +13,6 @@ public class DoctorCreate {
 
     public static Doctor createValidDoctor() {
         return Doctor.builder()
-                .id(1L)
                 .firstName("Fredy")
                 .lastName("Gomes")
                 .crm("123")
@@ -21,6 +20,7 @@ public class DoctorCreate {
                 .stay(Collections.emptyList())
                 .build();
     }
+
 
     public static DoctorDtoViewAll createValidDoctorDTO() {
         return DoctorDtoViewAll.builder()

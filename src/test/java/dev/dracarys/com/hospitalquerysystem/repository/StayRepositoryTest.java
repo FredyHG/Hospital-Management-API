@@ -30,7 +30,8 @@ class StayRepositoryTest {
 
     @Test
     @DisplayName("SavePersistStayWhenSuccessful")
-    void save_PersistAppointment_WhenSuccessful(){
+    void save_PersistAppointment_WhenSuccessful_2(){
+
 
         Doctor doctor = DoctorCreate.createValidDoctor();
         doctorRepository.save(doctor);
@@ -41,20 +42,27 @@ class StayRepositoryTest {
         Stay stayToBeSaved = CreateStay.createValidStay(doctor, patients);
         stayRepository.save(stayToBeSaved);
 
+
+
         Assertions.assertThat(stayToBeSaved).isNotNull();
         Assertions.assertThat(stayToBeSaved.getId()).isNotNull();
         Assertions.assertThat(stayToBeSaved.getPatient()).isEqualTo(patientsRepository.findByCpf("123").get());
         Assertions.assertThat(stayToBeSaved.getDoctor()).isEqualTo(doctorRepository.findByCrm("123").get());
+
+
+        patientsRepository.delete(patients);
+        doctorRepository.delete(doctor);
+
     }
 
     @Test
     @DisplayName("RemoveStayWhenSuccessful")
-    void delete_PersistAppointment_WhenSuccessful(){
+    void delete_PersistAppointment_WhenSuccessful_1(){
 
         Doctor doctor = DoctorCreate.createValidDoctor();
         doctorRepository.save(doctor);
 
-        Patients patients = PatientCreate.createValidPatient();
+        Patients patients = PatientCreate.createValidPatientForStayTest();
         patientsRepository.save(patients);
 
         Stay stayToBeSaved = CreateStay.createValidStay(doctor, patients);
