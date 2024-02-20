@@ -4,9 +4,9 @@ server:
 spring:
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: root
+    url: jdbc:postgresql://localhost:5432/hospital-system
+    username: admin
+    password: admin
   jpa:
     hibernate:
       ddl-auto: update
@@ -17,3 +17,9 @@ logging:
     org:
       hibernate:
         SQL: off
+
+application:
+  security:
+    jwt:
+      secret-key: '2a502fb2-5596-11ed-bdc3-0242ac120002'
+      expiration: '600000'

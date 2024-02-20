@@ -8,7 +8,7 @@
         <version>2.7.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>dev.dracarys.com</groupId>
+    <groupId>dev.fredyhg.com</groupId>
     <artifactId>hospital-system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>hospital-system</name>
@@ -132,6 +132,14 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>16</source>
+                    <target>16</target>
                 </configuration>
             </plugin>
         </plugins>

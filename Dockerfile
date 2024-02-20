@@ -1,4 +1,4 @@
-FROM maven:3.8.6-openjdk-11
+FROM maven:3.8.4-openjdk-17-slim
 
 WORKDIR /app
 
@@ -11,3 +11,4 @@ ADD . .
 RUN mvn install
 
 ENTRYPOINT ["mvn", "spring-boot:run"]
+
