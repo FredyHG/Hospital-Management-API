@@ -29,7 +29,6 @@ public class PatientPostRequestBody {
     @Length(min = 3, max = 15)
     private String lastName;
 
-//    @Pattern(regexp = "^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$", message = "Invalid CPF")
     @ValidCPF
     @Schema(example = "111.222.333-12")
     private String cpf;

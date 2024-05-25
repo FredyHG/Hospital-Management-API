@@ -36,53 +36,25 @@ public class StayController {
     private final StayServices stayServices;
 
     @PostMapping("/create")
-    @Operation(summary = "Create new stay", description = "To perform the request, it is necessary to have the permission of (HEADNURSE / ATTENDANT)", tags = {"STAYS"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Success created new stay", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = StayPostRequestBody.class))}),
-            @ApiResponse(responseCode = "400", description = "Already exists stay"),
-            @ApiResponse(responseCode = "400", description = "doctor or patient not exist"),
-            @ApiResponse(responseCode = "409", description = "body is incorrect"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized request")
-    })
-    public ResponseEntity<Object> createNewStay(@RequestBody StayPostRequestBody stayPostRequestBody) {
+    public ResponseEntity<ResponseMessage> createNewStay(@RequestBody StayPostRequestBody stayPostRequestBody) {
+
         stayServices.createNewStay(stayPostRequestBody);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Stay created successfully");
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseMessage("Stay created successfully"));
     }
 
-
     @GetMapping("/list")
-    @Operation(summary = "List all stays", description = "To perform the request, it is necessary to have the permission of (HEADNURSE / ATTENDANT / DOCTOR)", tags = {"STAYS"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Success list all stays"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized request")
-    })
     public ResponseEntity<List<StayGetReturnObject>> findAll() {
         return new ResponseEntity<>(stayServices.listAllStays(), HttpStatus.OK);
     }
 
-
     @PutMapping("/edit")
-    @Operation(summary = "Edit stay", description = "To perform the request, it is necessary to have the permission of (HEADNURSE / ATTENDANT)", tags = {"STAYS"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Stay edited successfully"),
-            @ApiResponse(responseCode = "400", description = "Stay not found"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized request"),
-            @ApiResponse(responseCode = "409", description = "Body is incorrect")
-    })
     public ResponseEntity<ResponseMessage> editStay(@RequestBody StayPutRequestBody stayPutRequestBody) {
 
         stayServices.editStayInfo(stayPutRequestBody);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage("Stay details updated successfully"));
     }
 
-
     @DeleteMapping("/delete")
-    @Operation(summary = "Delete stay", description = "To perform the request, it is necessary to have the permission of (HEADNURSE)", tags = {"STAYS"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Stay edited successfully"),
-            @ApiResponse(responseCode = "400", description = "Stay not found"),
-            @ApiResponse(responseCode = "409", description = "Body is incorrect")
-    })
     public ResponseEntity<ResponseMessage> deleteStay(StayDeleteRequestBody stayDeleteRequestBody) {
 
         stayServices.deleteStay(stayDeleteRequestBody);
