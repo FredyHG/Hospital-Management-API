@@ -1,9 +1,9 @@
 package dev.fredyhg.com.hospitalquerysystem.controller;
 
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.stay.StayDeleteRequestBody;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.stay.StayGetReturnObject;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.stay.StayPostRequestBody;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.stay.StayPutRequestBody;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.stay.StayDeleteRequestBody;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.stay.StayGetReturnObject;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.stay.StayPostRequestBody;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.stay.StayPutRequestBody;
 import dev.fredyhg.com.hospitalquerysystem.utils.models.ResponseMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 

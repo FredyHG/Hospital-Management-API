@@ -1,6 +1,6 @@
 package dev.fredyhg.com.hospitalquerysystem.configs;
 
-import dev.fredyhg.com.hospitalquerysystem.dominio.UserModel;
+import dev.fredyhg.com.hospitalquerysystem.models.UserModel;
 import dev.fredyhg.com.hospitalquerysystem.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.hibernate.Hibernate;

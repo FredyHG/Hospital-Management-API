@@ -1,7 +1,7 @@
 package dev.fredyhg.com.hospitalquerysystem.service;
 
-import dev.fredyhg.com.hospitalquerysystem.dominio.Role;
-import dev.fredyhg.com.hospitalquerysystem.dominio.UserModel;
+import dev.fredyhg.com.hospitalquerysystem.models.Role;
+import dev.fredyhg.com.hospitalquerysystem.models.UserModel;
 import dev.fredyhg.com.hospitalquerysystem.enums.RoleName;
 import dev.fredyhg.com.hospitalquerysystem.exception.RoleNotFoundException;
 import dev.fredyhg.com.hospitalquerysystem.exception.user.UserAlreadyExist;
@@ -9,8 +9,8 @@ import dev.fredyhg.com.hospitalquerysystem.exception.user.UserNotFound;
 import dev.fredyhg.com.hospitalquerysystem.mapper.ModelMappers;
 import dev.fredyhg.com.hospitalquerysystem.repository.RoleRepository;
 import dev.fredyhg.com.hospitalquerysystem.repository.UserRepository;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.user.UserAddRoleRequestBody;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.user.UserPostRequestBody;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.user.UserAddRoleRequestBody;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.user.UserPostRequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

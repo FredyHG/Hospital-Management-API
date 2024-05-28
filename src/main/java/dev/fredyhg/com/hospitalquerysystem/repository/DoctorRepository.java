@@ -1,6 +1,6 @@
 package dev.fredyhg.com.hospitalquerysystem.repository;
 
-import dev.fredyhg.com.hospitalquerysystem.dominio.Doctor;
+import dev.fredyhg.com.hospitalquerysystem.models.Doctor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

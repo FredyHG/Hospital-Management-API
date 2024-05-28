@@ -1,9 +1,9 @@
 package dev.fredyhg.com.hospitalquerysystem.service;
 
-import dev.fredyhg.com.hospitalquerysystem.dominio.Appointment;
-import dev.fredyhg.com.hospitalquerysystem.dominio.Doctor;
-import dev.fredyhg.com.hospitalquerysystem.dominio.Patient;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.appointments.*;
+import dev.fredyhg.com.hospitalquerysystem.models.Appointment;
+import dev.fredyhg.com.hospitalquerysystem.models.Doctor;
+import dev.fredyhg.com.hospitalquerysystem.models.Patient;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.appointments.*;
 import dev.fredyhg.com.hospitalquerysystem.exception.appointment.AppointmentAlreadyFinishException;
 import dev.fredyhg.com.hospitalquerysystem.exception.appointment.AppointmentNotFound;
 import dev.fredyhg.com.hospitalquerysystem.exception.appointment.AppointmentPendingAlreadyExists;
@@ -15,15 +15,12 @@ import dev.fredyhg.com.hospitalquerysystem.repository.DoctorRepository;
 import dev.fredyhg.com.hospitalquerysystem.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
 
 import javax.transaction.Transactional;
-import java.lang.reflect.Type;
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 

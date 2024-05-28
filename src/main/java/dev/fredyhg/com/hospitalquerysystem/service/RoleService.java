@@ -1,6 +1,6 @@
 package dev.fredyhg.com.hospitalquerysystem.service;
 
-import dev.fredyhg.com.hospitalquerysystem.dominio.Role;
+import dev.fredyhg.com.hospitalquerysystem.models.Role;
 import dev.fredyhg.com.hospitalquerysystem.enums.RoleName;
 import dev.fredyhg.com.hospitalquerysystem.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,5 @@ public class RoleService {
     public Optional<Role> findRoleByName(RoleName roleName){
         return roleRepository.findByRoleName(roleName);
     }
-
-
 
 }

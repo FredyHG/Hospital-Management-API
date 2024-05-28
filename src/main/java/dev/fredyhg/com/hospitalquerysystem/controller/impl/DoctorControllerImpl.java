@@ -1,19 +1,14 @@
 package dev.fredyhg.com.hospitalquerysystem.controller.impl;
 
 import dev.fredyhg.com.hospitalquerysystem.controller.DoctorController;
-import dev.fredyhg.com.hospitalquerysystem.dominio.Doctor;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.doctor.DoctorDtoViewAll;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.doctor.DoctorGetReturnObject;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.doctor.DoctorPostRequestBody;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.doctor.DoctorPutRequestBody;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.doctor.DoctorDtoViewAll;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.doctor.DoctorGetReturnObject;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.doctor.DoctorPostRequestBody;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.doctor.DoctorPutRequestBody;
 import dev.fredyhg.com.hospitalquerysystem.service.DoctorServices;
 import dev.fredyhg.com.hospitalquerysystem.utils.models.ResponseMessage;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.apache.coyote.Response;
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/hospital/doctor")

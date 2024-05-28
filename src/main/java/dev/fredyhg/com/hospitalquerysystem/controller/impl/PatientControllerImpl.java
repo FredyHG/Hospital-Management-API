@@ -1,12 +1,11 @@
 package dev.fredyhg.com.hospitalquerysystem.controller.impl;
 
 import dev.fredyhg.com.hospitalquerysystem.controller.PatientController;
-import dev.fredyhg.com.hospitalquerysystem.dominio.Patient;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.patient.PatientPostRequestBody;
+import dev.fredyhg.com.hospitalquerysystem.models.Patient;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.patient.PatientPostRequestBody;
 import dev.fredyhg.com.hospitalquerysystem.service.PatientServices;
 import dev.fredyhg.com.hospitalquerysystem.utils.models.ResponseMessage;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;

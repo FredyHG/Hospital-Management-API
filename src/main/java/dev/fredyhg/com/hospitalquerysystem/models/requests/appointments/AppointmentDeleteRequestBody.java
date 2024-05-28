@@ -1,4 +1,4 @@
-package dev.fredyhg.com.hospitalquerysystem.dominio.requests.stay;
+package dev.fredyhg.com.hospitalquerysystem.models.requests.appointments;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,11 +11,13 @@ import javax.validation.constraints.NotEmpty;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StayDeleteRequestBody {
+public class AppointmentDeleteRequestBody {
 
     @NotEmpty
     private String crmDoctor;
 
     @NotEmpty
     private String cpfPatient;
+
+
 }

@@ -2,7 +2,7 @@ package dev.fredyhg.com.hospitalquerysystem.controller.impl;
 
 
 import dev.fredyhg.com.hospitalquerysystem.controller.AppointmentController;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.appointments.*;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.appointments.*;
 import dev.fredyhg.com.hospitalquerysystem.service.AppointmentServices;
 import dev.fredyhg.com.hospitalquerysystem.utils.models.ResponseMessage;
 import lombok.RequiredArgsConstructor;

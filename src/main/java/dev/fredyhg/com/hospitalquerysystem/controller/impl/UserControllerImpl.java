@@ -1,9 +1,8 @@
 package dev.fredyhg.com.hospitalquerysystem.controller.impl;
 
 import dev.fredyhg.com.hospitalquerysystem.controller.UserController;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.user.UserAddRoleRequestBody;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.user.UserPostRequestBody;
-import dev.fredyhg.com.hospitalquerysystem.service.RoleService;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.user.UserAddRoleRequestBody;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.user.UserPostRequestBody;
 import dev.fredyhg.com.hospitalquerysystem.service.UserServices;
 import dev.fredyhg.com.hospitalquerysystem.utils.models.ResponseMessage;
 import lombok.RequiredArgsConstructor;

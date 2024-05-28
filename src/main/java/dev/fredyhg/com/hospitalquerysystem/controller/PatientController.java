@@ -1,7 +1,7 @@
 package dev.fredyhg.com.hospitalquerysystem.controller;
 
-import dev.fredyhg.com.hospitalquerysystem.dominio.Patient;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.patient.PatientPostRequestBody;
+import dev.fredyhg.com.hospitalquerysystem.models.Patient;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.patient.PatientPostRequestBody;
 import dev.fredyhg.com.hospitalquerysystem.utils.models.ResponseMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

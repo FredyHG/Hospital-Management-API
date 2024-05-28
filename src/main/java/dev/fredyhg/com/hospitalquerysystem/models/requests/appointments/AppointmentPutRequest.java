@@ -1,7 +1,6 @@
-package dev.fredyhg.com.hospitalquerysystem.dominio.requests.stay;
+package dev.fredyhg.com.hospitalquerysystem.models.requests.appointments;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import dev.fredyhg.com.hospitalquerysystem.enums.StatusStay;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,25 +13,20 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StayPutRequestBody {
+public class AppointmentPutRequest {
 
     @NotEmpty
     @JsonFormat(pattern="yyyy-MM-dd")
-    private LocalDate stayDate;
+    private LocalDate appointmentDate;
 
     private String drugAllergy;
 
-    private String description;
-
-    private StatusStay status;
+    private Boolean statusAttended;
 
     @NotEmpty
     private String crmDoctor;
 
     @NotEmpty
     private String cpfPatient;
-
-
-
 
 }

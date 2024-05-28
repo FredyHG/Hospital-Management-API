@@ -1,6 +1,6 @@
 package dev.fredyhg.com.hospitalquerysystem.repository;
 
-import dev.fredyhg.com.hospitalquerysystem.dominio.Role;
+import dev.fredyhg.com.hospitalquerysystem.models.Role;
 import dev.fredyhg.com.hospitalquerysystem.enums.RoleName;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -1,4 +1,4 @@
-package dev.fredyhg.com.hospitalquerysystem.dominio.requests.stay;
+package dev.fredyhg.com.hospitalquerysystem.models.requests.stay;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import dev.fredyhg.com.hospitalquerysystem.enums.StatusStay;

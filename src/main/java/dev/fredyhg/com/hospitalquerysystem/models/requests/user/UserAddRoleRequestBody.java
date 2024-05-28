@@ -1,4 +1,4 @@
-package dev.fredyhg.com.hospitalquerysystem.dominio.requests.user;
+package dev.fredyhg.com.hospitalquerysystem.models.requests.user;
 
 import dev.fredyhg.com.hospitalquerysystem.enums.RoleName;
 import lombok.AllArgsConstructor;

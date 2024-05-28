@@ -1,4 +1,4 @@
-package dev.fredyhg.com.hospitalquerysystem.dominio.requests.doctor;
+package dev.fredyhg.com.hospitalquerysystem.models.requests.doctor;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,10 @@ import javax.validation.constraints.NotEmpty;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DoctorPostRequestBody {
+public class DoctorPutRequestBody {
+    @NotEmpty
+    private Long id;
+
     @Length(min = 3,max = 16)
     @NotEmpty
     private String firstName;

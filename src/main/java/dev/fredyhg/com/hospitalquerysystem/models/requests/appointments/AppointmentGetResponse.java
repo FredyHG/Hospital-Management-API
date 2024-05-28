@@ -1,9 +1,9 @@
-package dev.fredyhg.com.hospitalquerysystem.dominio.requests.appointments;
+package dev.fredyhg.com.hospitalquerysystem.models.requests.appointments;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import dev.fredyhg.com.hospitalquerysystem.dominio.Patient;
-import dev.fredyhg.com.hospitalquerysystem.dominio.Doctor;
+import dev.fredyhg.com.hospitalquerysystem.models.Patient;
+import dev.fredyhg.com.hospitalquerysystem.models.Doctor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

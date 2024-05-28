@@ -1,11 +1,11 @@
 package dev.fredyhg.com.hospitalquerysystem.service;
 
-import dev.fredyhg.com.hospitalquerysystem.dominio.Patient;
+import dev.fredyhg.com.hospitalquerysystem.models.Patient;
 import dev.fredyhg.com.hospitalquerysystem.exception.patient.PatientInvalidBirthDate;
 import dev.fredyhg.com.hospitalquerysystem.exception.patient.PatientNotFoundException;
 import dev.fredyhg.com.hospitalquerysystem.mapper.ModelMappers;
 import dev.fredyhg.com.hospitalquerysystem.repository.PatientRepository;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.patient.PatientPostRequestBody;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.patient.PatientPostRequestBody;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 

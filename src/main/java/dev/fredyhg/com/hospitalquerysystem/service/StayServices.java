@@ -1,16 +1,16 @@
 package dev.fredyhg.com.hospitalquerysystem.service;
 
-import dev.fredyhg.com.hospitalquerysystem.dominio.Doctor;
-import dev.fredyhg.com.hospitalquerysystem.dominio.Patient;
-import dev.fredyhg.com.hospitalquerysystem.dominio.Stay;
+import dev.fredyhg.com.hospitalquerysystem.models.Doctor;
+import dev.fredyhg.com.hospitalquerysystem.models.Patient;
+import dev.fredyhg.com.hospitalquerysystem.models.Stay;
 import dev.fredyhg.com.hospitalquerysystem.exception.stay.InvalidStayDate;
 import dev.fredyhg.com.hospitalquerysystem.exception.stay.StayNotFound;
 import dev.fredyhg.com.hospitalquerysystem.mapper.ModelMappers;
 import dev.fredyhg.com.hospitalquerysystem.repository.StayRepository;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.stay.StayDeleteRequestBody;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.stay.StayGetReturnObject;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.stay.StayPostRequestBody;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.stay.StayPutRequestBody;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.stay.StayDeleteRequestBody;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.stay.StayGetReturnObject;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.stay.StayPostRequestBody;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.stay.StayPutRequestBody;
 import dev.fredyhg.com.hospitalquerysystem.utils.ConvertLocalDateToDateType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

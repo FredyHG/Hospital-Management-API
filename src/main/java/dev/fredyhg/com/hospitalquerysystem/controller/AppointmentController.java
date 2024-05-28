@@ -1,6 +1,6 @@
 package dev.fredyhg.com.hospitalquerysystem.controller;
 
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.appointments.*;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.appointments.*;
 import dev.fredyhg.com.hospitalquerysystem.utils.models.ResponseMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

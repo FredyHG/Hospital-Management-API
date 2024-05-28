@@ -1,9 +1,6 @@
-package dev.fredyhg.com.hospitalquerysystem.dominio.requests.stay;
+package dev.fredyhg.com.hospitalquerysystem.models.requests.stay;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import dev.fredyhg.com.hospitalquerysystem.dominio.Doctor;
-import dev.fredyhg.com.hospitalquerysystem.dominio.Patient;
 import dev.fredyhg.com.hospitalquerysystem.enums.StatusStay;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

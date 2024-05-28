@@ -1,11 +1,8 @@
-package dev.fredyhg.com.hospitalquerysystem.dominio.requests.doctor;
+package dev.fredyhg.com.hospitalquerysystem.models.requests.doctor;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import dev.fredyhg.com.hospitalquerysystem.dominio.Appointment;
-import dev.fredyhg.com.hospitalquerysystem.dominio.Stay;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.stay.StayGetReturnObject;
-import dev.fredyhg.com.hospitalquerysystem.dominio.requests.appointments.AppointmentGetResponse;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.stay.StayGetReturnObject;
+import dev.fredyhg.com.hospitalquerysystem.models.requests.appointments.AppointmentGetResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

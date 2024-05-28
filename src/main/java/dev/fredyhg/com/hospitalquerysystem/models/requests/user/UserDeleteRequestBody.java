@@ -1,4 +1,4 @@
-package dev.fredyhg.com.hospitalquerysystem.dominio.requests.user;
+package dev.fredyhg.com.hospitalquerysystem.models.requests.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

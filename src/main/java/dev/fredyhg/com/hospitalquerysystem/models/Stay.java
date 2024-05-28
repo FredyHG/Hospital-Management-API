@@ -1,4 +1,4 @@
-package dev.fredyhg.com.hospitalquerysystem.dominio;
+package dev.fredyhg.com.hospitalquerysystem.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 

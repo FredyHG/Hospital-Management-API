@@ -1,11 +1,8 @@
 package dev.fredyhg.com.hospitalquerysystem.configs.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.fredyhg.com.hospitalquerysystem.dominio.UserModel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import dev.fredyhg.com.hospitalquerysystem.models.UserModel;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

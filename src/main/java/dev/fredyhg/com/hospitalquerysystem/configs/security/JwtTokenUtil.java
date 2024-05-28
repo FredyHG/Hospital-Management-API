@@ -2,7 +2,7 @@ package dev.fredyhg.com.hospitalquerysystem.configs.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import dev.fredyhg.com.hospitalquerysystem.dominio.UserModel;
+import dev.fredyhg.com.hospitalquerysystem.models.UserModel;
 import dev.fredyhg.com.hospitalquerysystem.exception.TokenInvalidException;
 import io.jsonwebtoken.*;
 import lombok.extern.log4j.Log4j2;

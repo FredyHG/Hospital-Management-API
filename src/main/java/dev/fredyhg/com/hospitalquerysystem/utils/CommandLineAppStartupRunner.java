@@ -1,7 +1,7 @@
 package dev.fredyhg.com.hospitalquerysystem.utils;
 
-import dev.fredyhg.com.hospitalquerysystem.dominio.Role;
-import dev.fredyhg.com.hospitalquerysystem.dominio.UserModel;
+import dev.fredyhg.com.hospitalquerysystem.models.Role;
+import dev.fredyhg.com.hospitalquerysystem.models.UserModel;
 import dev.fredyhg.com.hospitalquerysystem.enums.RoleName;
 import dev.fredyhg.com.hospitalquerysystem.repository.RoleRepository;
 import dev.fredyhg.com.hospitalquerysystem.repository.UserRepository;

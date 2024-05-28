@@ -1,7 +1,7 @@
 package dev.fredyhg.com.hospitalquerysystem.configs.security;
 
-import dev.fredyhg.com.hospitalquerysystem.dominio.Role;
-import dev.fredyhg.com.hospitalquerysystem.dominio.UserModel;
+import dev.fredyhg.com.hospitalquerysystem.models.Role;
+import dev.fredyhg.com.hospitalquerysystem.models.UserModel;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Log4j2
